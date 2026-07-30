@@ -3,20 +3,26 @@
 import { useState, useEffect } from "react";
 import { Job } from "./types";
 import JobCard from "./components/Jobcard";
+import { fetchJobs } from "./api/jobfetch";
 
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(
-    () =>
-      fetchJobs()
-        .then(setJobs)
-        .catch((err: Error) => setError(err.message))
-        .finally(() => setLoading(false)),
-    [],
-  );
+  useEffect(() => {
+    async function loadJobs() {
+      try {
+        const data = await fetchJobs();
+        setJobs(data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadJobs();
+  }, []);
 
   const markApplied = (id: string) => {
     setJobs((prev) =>
