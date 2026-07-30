@@ -4,8 +4,8 @@ load_dotenv()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.pipeline import run_pipeline
-from backend.storage import get_dashboard_jobs
+from pipeline import run_pipeline
+from storage import get_dashboard_jobs
 
 app = FastAPI(title="Job Radar")
 

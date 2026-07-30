@@ -1,8 +1,8 @@
 import os
-from backend.scores_adzuna import run_search_profile
-from backend.score_jobs import score_job
-from backend.enrich_contacts import find_contact
-from backend.storage import job_already_seen, save_job, save_contact
+from scores_adzuna import run_search_profile
+from score_jobs import score_job
+from enrich_contacts import find_contact
+from storage import job_already_seen, save_job, save_contact
 
 SEARCH_TITLES = [t.strip() for t in os.getenv("SEARCH_TITLES", "").split(',') if t.strip()]
 SEARCH_LOCATION = os.getenv("SEARCH_LOCATION", "Los Angeles")
