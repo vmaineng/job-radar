@@ -54,3 +54,4 @@ async def run_search_profile(titles: list[str], location: str, include_remote: b
                 # rate limit or bad request on this combo — skip and keep going
                 continue
     return all_jobs
+
