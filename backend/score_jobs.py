@@ -7,7 +7,9 @@ client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 CANDIDATE_PROFILE="""
 Career changer from finance (FP&A) into software engineering, bootcamp grad.
 Stack: React, TypeScript, Next.js, Python, FastAPI, Supabase, Claude API integration.
-Targeting junior/entry-level/associate software engineer, solutions engineer, and data analyst roles in Los Angeles or remote.
+Also has a finance/FP&A background (Excel/SQL, budget-vs-actual reporting).
+Targeting junior/entry-level/associate roles in software engineering, business
+analysis, or solutions analysis, in Los Angeles or remote.
 """
 
 def score_job(title:str, description:str) -> dict:

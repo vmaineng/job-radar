@@ -21,14 +21,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Debug env
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: |
-          echo "SUPABASE_URL length: ${#SUPABASE_URL}"
-          echo "SUPABASE_SERVICE_KEY length: ${#SUPABASE_SERVICE_KEY}"
-
       - name: Run job search pipeline
         env:
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
@@ -38,7 +30,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          SEARCH_TITLES: "Junior Software Engineer,Software Engineer I,Associate Software Engineer,Software Engineer New Grad,Entry Level Software Engineer"
+          SEARCH_TITLES: "SEARCH_TITLES=Junior Software Engineer,Software Engineer I,Associate Software Engineer,Software Engineer New Grad,Entry Level Software Engineer,Solutions Analyst I,Business Analyst"
           SEARCH_LOCATION: "Los Angeles"
           INCLUDE_REMOTE: "true"
         run: python run_pipeline.py
