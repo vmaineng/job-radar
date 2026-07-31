@@ -2,9 +2,8 @@ name: Daily Job Search
 
 on:
   schedule:
-    # 7:00 AM Pacific = 14:00 UTC (13:00 during PDT — adjust if needed for daylight saving)
     - cron: "0 14 * * *"
-  workflow_dispatch: {}  # lets you trigger it manually from the GitHub Actions tab too
+  workflow_dispatch: {}
 
 jobs:
   run-pipeline:
@@ -22,6 +21,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Debug env
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          echo "SUPABASE_URL length: ${#SUPABASE_URL}"
+          echo "SUPABASE_SERVICE_KEY length: ${#SUPABASE_SERVICE_KEY}"
+
       - name: Run job search pipeline
         env:
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
@@ -35,11 +42,3 @@ jobs:
           SEARCH_LOCATION: "Los Angeles"
           INCLUDE_REMOTE: "true"
         run: python run_pipeline.py
-
-      - name: Debug env
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: |
-          echo "SUPABASE_URL length: ${#SUPABASE_URL}"
-          echo "SUPABASE_SERVICE_KEY length: ${#SUPABASE_SERVICE_KEY}"
