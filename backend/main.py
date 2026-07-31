@@ -17,8 +17,8 @@ app.add_middleware(
 )
 
 @app.get("/api/jobs")
-def list_jobs(min_score: int = 50): 
-    return get_dashboard_jobs(min_score=min_score)
+def list_jobs(min_score: int = 50, max_age_days: int = 14): 
+    return get_dashboard_jobs(min_score=min_score, max_age_days=max_age_days)
 
 @app.post("/api/run-now")
 async def trigger_run():

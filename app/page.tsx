@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Job } from "./types";
 import JobCard from "./components/Jobcard";
 import { fetchJobs } from "./api/jobfetch";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -31,29 +32,31 @@ export default function Home() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-semibold mb-1">Job Radar</h1>
-      <p className="text-gray-500 mb-6">
-        {loading
-          ? "loading today's matches..."
-          : `${jobs.length} new matches - ranked by fit, with a contact for each other`}
-      </p>
-      {error && (
-        <div className="border border-red-200 bg-red-50 bg-red-50 text-red-700 rounded-xl p-4 mb-4">
-          Couldn&aposj;t load jobs: {error}. Is the backend running?
-        </div>
-      )}
+    <div>
+      <Navbar />
+      <div className="max-w-4xl mx-auto p-6">
+        <p className="text-gray-500 mb-6">
+          {loading
+            ? "loading today's matches..."
+            : `${jobs.length} new matches - ranked by fit, with a contact for each other`}
+        </p>
+        {error && (
+          <div className="border border-red-200 bg-red-50 bg-red-50 text-red-700 rounded-xl p-4 mb-4">
+            Couldn&aposj;t load jobs: {error}. Is the backend running?
+          </div>
+        )}
 
-      {!loading && !error && jobs.length === 0 && (
-        <div className="text-gray-500 border rounded-xl p-6 text-center">
-          No matches yet — check back after the next scheduled run.
-        </div>
-      )}
+        {!loading && !error && jobs.length === 0 && (
+          <div className="text-gray-500 border rounded-xl p-6 text-center">
+            No matches yet — check back after the next scheduled run.
+          </div>
+        )}
 
-      <div className="space-y-4">
-        {jobs.map((job) => (
-          <JobCard key={job.id} job={job} onMarkApplied={markApplied} />
-        ))}
+        <div className="space-y-4">
+          {jobs.map((job) => (
+            <JobCard key={job.id} job={job} onMarkApplied={markApplied} />
+          ))}
+        </div>
       </div>
     </div>
   );

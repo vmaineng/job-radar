@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timedelta, timezone
 from supabase import create_client, Client
 
 supabase: Client = create_client(
@@ -29,12 +30,14 @@ def save_contact(job_id: str, contact: dict):
     supabase.table("contacts").insert(contact).execute()
 
 
-def get_dashboard_jobs(min_score: int = 50):
+def get_dashboard_jobs(min_score: int = 50, max_age_days: int = 14):
     """Fetch recent, relevant jobs with their contacts for the dashboard."""
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=max_age_days)).isoformat()
     jobs = (
         supabase.table("jobs")
         .select("*, contacts(*)")
         .gte("relevance_score", min_score)
+        .gte("found_at", cutoff)
         .order("found_at", desc=True)
         .limit(100)
         .execute()
