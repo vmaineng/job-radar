@@ -1,35 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Job } from "./types";
 import JobCard from "./components/Jobcard";
-import { fetchJobs } from "./api/jobfetch";
 import Navbar from "./components/Navbar";
+import { useJobs } from "./hook/useJobs";
 
 export default function Home() {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function loadJobs() {
-      try {
-        const data = await fetchJobs();
-        setJobs(data);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadJobs();
-  }, []);
-
-  const markApplied = (id: string) => {
-    setJobs((prev) =>
-      prev.map((job) => (job.id === id ? { ...job, status: "applied" } : job)),
-    );
-  };
+  const { jobs, loading, error, markApplied } = useJobs();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
