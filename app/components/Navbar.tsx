@@ -15,7 +15,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="fixed top-0 left-0 w-full border-b border-border bg-background/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
         <a
           href="#top"
