@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relatiave overflow-hidden pt-40 pb-28">
-      <div className="absolute inset-0 z-10">
+    <section className="relative overflow-hidden pt-28 pb-20">
+      <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-0 h-125 w-125 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl " />
       </div>
       <div className="mx-auto grid max-w-7xl items-center gap-20 px-6 lg:grid-cols-2">
@@ -31,7 +31,7 @@ export default function Hero() {
               Start Free{" "}
             </Link>
           </div>
-          <div className="mt-10 flex items-center gap-8 text-sm text-secondary">
+          <div className="mt-6 flex items-center gap-8 text-sm text-secondary">
             <div>✓ AI-ranked matches</div>
             <div>✓ Recruiter contacts</div>
             <div>✓ Daily updates</div>
