@@ -30,9 +30,13 @@ def save_contact(job_id: str, contact: dict):
     supabase.table("contacts").insert(contact).execute()
 
 
-def get_dashboard_jobs(min_score: int = 50, max_age_days: int = 14):
+def get_dashboard_jobs(min_score: int = 50, max_age_days: int = 14, today_only: bool = False):
     """Fetch recent, relevant jobs with their contacts for the dashboard."""
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=max_age_days)).isoformat()
+    if today_only:
+        now = datetime.now(timezone.utc)
+        cutoff = now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+    else:
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=max_age_days)).isoformat()
     jobs = (
         supabase.table("jobs")
         .select("*, contacts(*)")
