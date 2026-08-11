@@ -2,7 +2,7 @@
 
 import JobCard from "@/components/Jobcard";
 import Navbar from "@/components/Navbar";
-import { useJobs } from "../hook/useJobs";
+import { useJobs } from "../../hooks/useJobs";
 
 export default function Dashboard() {
   const { jobs, loading, error, markApplied } = useJobs();
