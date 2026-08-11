@@ -1,7 +1,7 @@
 "use client";
 
 import JobCard from "@/components/Jobcard";
-import Navbar from "@/components/Navbar";
+import DashboardNavbar from "./DashboardNavbar";
 import { useJobs } from "../../hooks/useJobs";
 
 export default function Dashboard() {
@@ -9,7 +9,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+      <DashboardNavbar />
       <main className="ax-w-6xl mx-auto px-6 pt-28 pb-10">
         <div
           className="bg-surface
