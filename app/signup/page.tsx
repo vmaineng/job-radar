@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { supabase } from "../lib/supabaseClient";
-import AuthLayout from "../components/AuthLayout";
-import AuthInput from "../components/AuthInput";
+import { supabase } from "@/lib/supabaseClient";
+import AuthLayout from "@/components/AuthLayout";
+import AuthInput from "@/components/AuthInput";
 
 export default function SignUpPage() {
   const router = useRouter();

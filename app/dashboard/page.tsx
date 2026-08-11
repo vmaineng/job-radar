@@ -1,7 +1,7 @@
 "use client";
 
-import JobCard from "../components/Jobcard";
-import Navbar from "../components/Navbar";
+import JobCard from "@/components/Jobcard";
+import Navbar from "@/components/Navbar";
 import { useJobs } from "../hook/useJobs";
 
 export default function Dashboard() {
