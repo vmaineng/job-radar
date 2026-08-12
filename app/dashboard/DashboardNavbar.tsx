@@ -43,7 +43,7 @@ export default function DashboardNavbar({
 
   return (
     <nav className="fixed top-0 left-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="max-w-7l mx-auato flex items-center justify-between px-6 py-4">
+      <div className="flex items-center justify-between px-6 py-4">
         <Link
           href="/dashboard"
           className="text-2xl font-bold tracking-tight text-primary"

@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <div className="flex items-center justify-between px-6 py-4">
         <Link
           href="/"
           className="text-2xl font-bold tracking-tight text-primary"
@@ -30,10 +30,7 @@ export default function Navbar() {
               <li key={navlink.label}>
                 <a
                   href={navlink.href}
-                  className="text-secondary
-                    font-medium
-                    transition-colors
-                    hover:text-primary"
+                  className="flex items-center gap-2 text-secondary font-medium transition-colors hover:text-primary"
                 >
                   {navlink.label}
                 </a>
@@ -57,13 +54,6 @@ export default function Navbar() {
               className="text-secondary hover:text-primary transition-colors"
             >
               Login
-            </Link>
-
-            <Link
-              href="/signup"
-              className="rounded-xl bg-primary px-5 py-2.5 font-medium text-white hover:bg-primary-hover transition"
-            >
-              Get Started
             </Link>
           </div>
         </nav>
@@ -118,16 +108,6 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                 >
                   Login
-                </Link>
-              </li>
-
-              <li className="px-6">
-                <Link
-                  href="/signup"
-                  className="mt-2 block rounded-xl bg-primary px-4 py-3 text-center font-medium text-white hover:bg-primary-hover"
-                  onClick={() => setOpen(false)}
-                >
-                  Get Started
                 </Link>
               </li>
             </ul>
