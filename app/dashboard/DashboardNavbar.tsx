@@ -21,8 +21,8 @@ const NAV_LINKS = [
     href: "/dashboard",
     icon: LayoutDashboard,
   },
-  { label: "Matches", href: "/dashboard/matches", icon: Search },
-  { label: "Saved", href: "/dashboard/saved", icon: Bookmark },
+  //   { label: "Matches", href: "/dashboard/matches", icon: Search },
+  //   { label: "Saved", href: "/dashboard/saved", icon: Bookmark },
 ];
 
 interface DashboardNavbarProps {
@@ -78,6 +78,17 @@ export default function DashboardNavbar({
               )}
             </button>
           </div>
+
+          <button
+            onClick={() => {
+              setOpen(false);
+              onLogout?.();
+            }}
+            className="flex w-full items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors"
+          >
+            <LogOut size={15} className="text-secondary" />
+            Log out
+          </button>
         </div>
         <div className="md:hidden flex items-center gap-4">
           <button onClick={toggleTheme} className="text-primary">

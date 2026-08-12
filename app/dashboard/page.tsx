@@ -3,13 +3,22 @@
 import JobCard from "@/components/Jobcard";
 import DashboardNavbar from "./DashboardNavbar";
 import { useJobs } from "../../hooks/useJobs";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
   const { jobs, loading, error, markApplied } = useJobs();
+  const { signOut } = useAuth();
+  const router = useRouter();
+
+  async function handleLogout() {
+    await signOut();
+    router.push("/login");
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <DashboardNavbar />
+      <DashboardNavbar onLogout={handleLogout} />
       <main className="ax-w-6xl mx-auto px-6 pt-28 pb-10">
         <div
           className="bg-surface
