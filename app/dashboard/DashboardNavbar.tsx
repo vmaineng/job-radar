@@ -13,6 +13,11 @@ import {
 import { useTheme } from "@/context/ThemeContext";
 import Link from "next/link";
 
+interface DashboardNavbarProps {
+  isGuest?: boolean;
+  onLogout?: () => void;
+}
+
 const NAV_LINKS = [
   {
     label: "Dashboard",
@@ -23,17 +28,8 @@ const NAV_LINKS = [
   //   { label: "Saved", href: "/dashboard/saved", icon: Bookmark },
 ];
 
-interface DashboardNavbarProps {
-  userName?: string;
-  activeHref?: string;
-  onNavigate?: (href: string) => void;
-  onLogout?: () => void;
-}
-
 export default function DashboardNavbar({
-  userName = "Mai",
-  activeHref = "/dashboard",
-  onNavigate,
+  isGuest = False,
   onLogout,
 }: DashboardNavbarProps) {
   const [open, setOpen] = useState(false);
@@ -75,18 +71,32 @@ export default function DashboardNavbar({
                 <Moon className="w-4 h-4" />
               )}
             </button>
-          </div>
 
-          <button
-            onClick={() => {
-              setOpen(false);
-              onLogout?.();
-            }}
-            className="flex w-full items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors"
-          >
-            <LogOut size={15} className="text-secondary" />
-            Log out
-          </button>
+            {isGuest ? (
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-secondary hover:text-primary transition-colors"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/signup"
+                  className="text-sm font-medium bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary-hover transition-colors"
+                >
+                  Sign up
+                </Link>
+              </div>
+            ) : (
+              <button
+                onClick={() => onLogout?.()}
+                className="flex items-center gap-2 text-sm text-secondary hover:text-primary transition-colors"
+              >
+                <LogOut size={15} />
+                Log out
+              </button>
+            )}
+          </div>
         </div>
         <div className="md:hidden flex items-center gap-4">
           <button onClick={toggleTheme} className="text-primary">
@@ -134,16 +144,35 @@ export default function DashboardNavbar({
               ))}
 
               <li className="mt-4 border-t border-border pt-4 px-6">
-                <button
-                  onClick={() => {
-                    setOpen(false);
-                    onLogout?.();
-                  }}
-                  className="flex w-full items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors"
-                >
-                  <LogOut size={15} className="text-secondary" />
-                  Log out
-                </button>
+                {isGuest ? (
+                  <div className="flex flex-col gap-3">
+                    <Link
+                      href="/login"
+                      className="text-sm text-secondary hover:text-primary"
+                      onClick={() => setOpen(false)}
+                    >
+                      Log in
+                    </Link>
+                    <Link
+                      href="/signup"
+                      className="text-sm font-medium text-primary"
+                      onClick={() => setOpen(false)}
+                    >
+                      Sign up
+                    </Link>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setOpen(false);
+                      onLogout?.();
+                    }}
+                    className="flex w-full items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors"
+                  >
+                    <LogOut size={15} className="text-secondary" />
+                    Log out
+                  </button>
+                )}
               </li>
             </ul>
           </nav>

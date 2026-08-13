@@ -69,7 +69,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <DashboardNavbar onLogout={handleLogout} />
+      <DashboardNavbar isGuest={isGuest} onLogout={handleLogout} />
       <main className="max-w-6xl mx-auto px-6 pt-28 pb-10">
         {isGuest && (
           <div className="mb-6 rounded-2xl border border-primary/30 bg-primary/10 p-4 flex items-center justify-between">
