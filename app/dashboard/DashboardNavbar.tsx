@@ -3,8 +3,6 @@
 import { useState } from "react";
 import {
   LayoutDashboard,
-  Search,
-  Bookmark,
   Moon,
   Sun,
   LogOut,
