@@ -77,10 +77,10 @@ export default function Dashboard() {
               You&apos;re viewing sample matches. Sign up to get real
               daily-scanned jobs with contacts.
             </p>
-            <div className="flex gap-3 shrink-0 ml-4">
+            <div className="flex gap-3 shrink-0 ml-4 items-center">
               <Link
                 href="/login"
-                className="text-sm font-medium text-primary hover:underline"
+                className="text-sm font-medium text-primary hover:underline px-1"
               >
                 Log in
               </Link>
