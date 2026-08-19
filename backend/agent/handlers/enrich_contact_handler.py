@@ -5,6 +5,7 @@ from storage import supabase
 
 MONTHLY_HUNTER_LIMIT = 20
 MIN_SCORE_TO_ENRICH = 50
+MAX_ENRICH_CALLS_PER_RUN = 1
 
 def _linkedin_fallback_url(company_name: str) -> str:
     import urllib.parse
@@ -24,14 +25,24 @@ def _get_hunter_calls_this_month() -> int:
 def _increment_hunter_usage():
     supabase.table("hunter_usage").insert({}).execute()
 
-async def enrich_contact_handler(company_name: str, relevance_score: int, company_domain: str | None = None) -> dict:
+async def enrich_contact_handler(company_name: str, relevance_score: int, company_domain: str | None = None, calls_this_run: int = 0,) -> dict:
     """
     Tool handler for `enrich_contact`. Enforces two hard backstops so a
     prompt-following slip can never cost a Hunter credit on a low-fit
     posting or exceed the monthly quota:
       1. relevance_score must be >= MIN_SCORE_TO_ENRICH
       2. Hunter calls this month must be under MONTHLY_HUNTER_LIMIT
+      3. Hunter calls this month must be under MONTHLY_HUNTER_LIMIT
     """
+
+    if calls_this_run >= MAX_ENRICH_CALLS_PER_RUN:
+        return {
+            "full_name": None,
+            "title": None,
+            "email": None,
+            "linkedin_search_url": _linkedin_fallback_url(company_name),
+            "source": "run_limit_reached",
+        }
     if relevance_score < MIN_SCORE_TO_ENRICH:
         return {
             "full_name": None,

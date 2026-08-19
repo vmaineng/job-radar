@@ -1,3 +1,10 @@
+import logging
+from anthropic import Anthropic
+from agent.tools import tool_functions, tools
+
+log = logging.getLogger(__name__)
+client = Anthropic()
+
 MAX_ITERATIONS = 15
 MAX_TOOL_CALLS = 40
 
@@ -33,12 +40,16 @@ Work through all postings from search_jobs before deciding which one (if any)
 gets enrichment — you need every score to know which is actually the top match.
 """
 
-def run_job_radar_agent(user_preferences:str):
+
+
+async def run_job_radar_agent() -> dict:
     messages = [{"role": "user", "content": "Run today's job search."}]
     iteration = 0
     total_tool_calls = 0
     total_input_tokens = 0
     total_output_tokens = 0
+    enrich_calls = 0
+    saved_count = 0
 
     while iteration < MAX_ITERATIONS:
         iteration += 1
@@ -74,7 +85,11 @@ def run_job_radar_agent(user_preferences:str):
         tool_results = []
         for block in tool_use_blocks:
             try:
-                result = tool_functions[block.name](**block.input)
+                kwargs = dict(block.input)
+                if block.name == "enrich_contact":
+                    kwargs["calls_this_run"] = enrich_calls
+                    enrich_calls += 1
+                result = await tool_functions[block.name](**kwargs)
             except Exception as e:
                 result = {"error": str(e)}
             tool_results.append({
@@ -87,4 +102,14 @@ def run_job_radar_agent(user_preferences:str):
     if iteration >= MAX_ITERATIONS:
         log.warning(f"Job Radar agent hit MAX_ITERATIONS ({MAX_ITERATIONS})")
 
-    return messages
+    cost_estimate = (total_input_tokens / 1_000_000 * 3.00) + (total_output_tokens / 1_000_000 * 15.00)
+
+    return {
+        "saved_count": saved_count,
+        "iterations": iteration,
+        "tool_calls": total_tool_calls,
+        "enrich_calls": enrich_calls,
+        "input_tokens": total_input_tokens,
+        "output_tokens": total_output_tokens,
+        "estimated_cost_usd": round(cost_estimate, 4),
+    }
