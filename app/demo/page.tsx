@@ -73,17 +73,17 @@ export default function DemoPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
-      <h1 className="text-2xl font-semibold mb-2">
+      <h1 className="text-2xl font-semibold mb-2 text-foreground">
         Watch the Job Radar agent work
       </h1>
-      <p className="text-gray-600 mb-8">
+      <p className="text-secondary mb-8">
         Job Radar is an AI agent that searches, scores, and enriches job
         postings on its own — pick a search below and watch it reason through
         each step.
       </p>
 
       {!result && (
-        <div className="space-y-4 border rounded-lg p-6 bg-white shadow-sm">
+        <div className="space-y-4 border rounded-lg p-6 bg-card shadow-sm">
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
             <input
@@ -91,20 +91,22 @@ export default function DemoPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full border rounded-md px-3 py-2"
+              className="w-full border border-border rounded-md px-3 py-2 bg-surface text-foreground placeholder:text-secondary"
               disabled={loading}
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-secondary mt-1">
               One demo run per email — no spam, promise.
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Search</label>
+            <label className="block text-sm font-medium mb-1 text-foreground">
+              Search
+            </label>
             <select
               value={preset}
               onChange={(e) => setPreset(e.target.value)}
-              className="w-full border rounded-md px-3 py-2"
+              className="w-full border border-border rounded-md px-3 py-2 bg-surface text-foreground"
               disabled={loading}
             >
               {PRESETS.map((p) => (
@@ -120,7 +122,7 @@ export default function DemoPage() {
           <button
             onClick={runDemo}
             disabled={loading || !email}
-            className="w-full bg-black text-white rounded-md py-2 font-medium disabled:opacity-50"
+            className="w-full bg-primary hover:bg-primary-hover text-white rounded-md py-2 font-medium disabled:opacity-50 transition-colors"
           >
             {loading ? "Running agent..." : "Run Agent"}
           </button>
@@ -130,8 +132,8 @@ export default function DemoPage() {
       {result && (
         <div className="space-y-6">
           {result.candidate_profile && (
-            <div className="text-sm bg-gray-50 border rounded-lg p-4 text-gray-700">
-              <span className="font-medium">Scoring against:</span>{" "}
+            <div className="text-sm bg-card border border-border rounded-lg p-4 text-secondary">
+              <span className="font-medium">Scoring against:</span>
               {result.candidate_profile}
             </div>
           )}
@@ -142,7 +144,7 @@ export default function DemoPage() {
             ))}
           </div>
 
-          <div className="text-sm text-gray-500 pt-4 border-t">
+          <div className="text-sm text-secondary pt-4 border-t border-border">
             {result.saved_count} posting{result.saved_count === 1 ? "" : "s"}{" "}
             evaluated and saved.
           </div>
@@ -155,14 +157,14 @@ export default function DemoPage() {
 function TraceItem({ step }: { step: TraceStep }) {
   if (step.type === "reasoning") {
     return (
-      <p className="text-gray-800 italic pl-2 border-l-2 border-gray-200">
+      <p className="text-foreground italic pl-2 border-l-2 border-border">
         {step.text}
       </p>
     );
   }
   if (step.type === "tool_call") {
     return (
-      <div className="bg-blue-50 border border-blue-100 rounded-md px-3 py-2 text-sm">
+      <div className="bg-primary/10 border border-primary/20 rounded-md px-3 py-2 text-sm text-foreground">
         <span className="font-medium">
           {TOOL_LABELS[step.tool] ?? step.tool}
         </span>
@@ -171,10 +173,10 @@ function TraceItem({ step }: { step: TraceStep }) {
   }
   if (step.type === "tool_result") {
     return (
-      <div className="bg-gray-50 border rounded-md px-3 py-2 text-sm text-gray-600">
+      <div className="bg-card border border-border rounded-md px-3 py-2 text-sm text-secondary">
         {renderResultSummary(step)}
       </div>
     );
   }
-  return <p className="text-xs text-gray-400">{step.text}</p>;
+  return <p className="text-xs text-secondary">{step.text}</p>;
 }
