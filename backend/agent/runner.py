@@ -11,6 +11,14 @@ MAX_TOOL_CALLS = 40
 DEMO_MAX_ITERATIONS = 8
 DEMO_MAX_TOOL_CALLS = 15
 
+CANDIDATE_PROFILE = """
+Career changer from finance (FP&A) into software engineering, bootcamp grad.
+Stack: React, TypeScript, Next.js, Python, FastAPI, Supabase, Claude API integration.
+Also has a finance/FP&A background (Excel/SQL, budget-vs-actual reporting).
+Targeting junior/entry-level/associate roles in software engineering, business
+analysis, or solutions analysis, in Los Angeles or remote.
+"""
+
 def build_system_prompt(skip_enrichment: bool) -> str:
     enrichment_instructions = (
         "5. If no posting scores 50 or higher, skip enrichment entirely for this run."
