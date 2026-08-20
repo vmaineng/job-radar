@@ -20,7 +20,7 @@ export default function Hero() {
 
           <p className="mt-8 max-w-xl text-lg leading-8 text-secondary">
             Discover personalized job matches every morning, ranked by AI,
-            complete with a recuirter contacts and a dashboard to stay organized
+            complete with a recruiter contacts and a dashboard to stay organized
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -28,7 +28,13 @@ export default function Hero() {
               href="/dashboard"
               className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-hover"
             >
-              Start Free{" "}
+              Start Free
+            </Link>
+            <Link
+              href="/demo"
+              className="rounded-xl border border-border bg-surface px-6 py-3 font-semibold text-foreground transition hover:border-primary"
+            >
+              Watch the AI agent work
             </Link>
           </div>
           <div className="mt-6 flex items-center gap-8 text-sm text-secondary">

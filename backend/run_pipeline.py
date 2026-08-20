@@ -1,11 +1,11 @@
-
 import asyncio
 from dotenv import load_dotenv
-
 load_dotenv()
 
-from pipeline import run_pipeline
+from agent.runner import run_job_radar_agent
 
 if __name__ == "__main__":
-    count = asyncio.run(run_pipeline())
-    print(f"Pipeline finished — {count} new jobs added.")
+    result = asyncio.run(run_job_radar_agent())
+    print(f"Agent finished — {result['saved_count']} new jobs saved, "
+          f"{result['tool_calls']} tool calls, "
+          f"${result['estimated_cost_usd']} estimated cost.")
