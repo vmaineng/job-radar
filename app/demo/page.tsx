@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { renderResultSummary } from "@/lib/formatTraceResult";
+import MarketingNavbar from "@/app/(marketing)/MarketingNavbar";
 
 type TraceStep =
   | { type: "reasoning"; text: string }
@@ -72,7 +73,8 @@ export default function DemoPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
+    <div className="max-w-2xl mx-auto px-4 py-30">
+      <MarketingNavbar />
       <h1 className="text-2xl font-semibold mb-2 text-foreground">
         Watch the Job Radar agent work
       </h1>
