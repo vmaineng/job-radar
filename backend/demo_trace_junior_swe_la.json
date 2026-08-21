@@ -1,0 +1,267 @@
+{
+  "saved_count": 0,
+  "iterations": 2,
+  "tool_calls": 1,
+  "enrich_calls": 0,
+  "input_tokens": 8529,
+  "output_tokens": 2052,
+  "estimated_cost_usd": 0.0564,
+  "trace": [
+    {
+      "type": "reasoning",
+      "text": "Starting the run by fetching all new, unseen job postings."
+    },
+    {
+      "type": "tool_call",
+      "tool": "search_jobs",
+      "input": {}
+    },
+    {
+      "type": "tool_result",
+      "tool": "search_jobs",
+      "result": {
+        "count": 18,
+        "jobs": [
+          {
+            "source": "adzuna",
+            "external_id": "5849335243",
+            "title": "Software I&T Engineer , Amazon Leo for Government with Security Clearance",
+            "company": "Amazon",
+            "location": "Los Angeles, Los Angeles County",
+            "is_remote": true,
+            "description": "Description Amazon Leo is a initiative within Amazon that aims to revolutionize global connectivity through the development of a state-of-the-art Low Earth Orbit (LEO) interconnected satellite communication constellation. Our mission is to bridge the digital divide by delivering high-speed, low latency, internet services to underserved and unserved communities and remote communities around the world. By leveraging satellite technology, we are working towards a future where everyone has access t\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849335243?se=vGPr-PKc8RGgd9X26G9YQA&utm_medium=api&utm_source=1a9d2e17&v=09C3FCDC47A180F39B8D7E0027126C823987FD3E",
+            "salary_min": 172345.22,
+            "salary_max": 172345.22,
+            "posted_at": "2026-08-20T02:00:38Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5848616389",
+            "title": "Summer 2027 Software Engineering Internship/Co-op",
+            "company": "SpaceX",
+            "location": "Hawthorne, Los Angeles County",
+            "is_remote": false,
+            "description": "SpaceX was founded under the belief that a future where humanity is out exploring the stars is fundamentally more exciting than one where we are not. Today SpaceX is actively developing the technologies to make this possible, with the ultimate goal of enabling human life on Mars. SUMMER 2027 SOFTWARE ENGINEERING INTERNSHIP/CO-OP SpaceX seeks extraordinary students to join us for software engineering roles in Summer 2027. As a software intern, you will work closely with your mentor and other emp\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5848616389?se=vGPr-PKc8RGgd9X26G9YQA&utm_medium=api&utm_source=1a9d2e17&v=AC76E1E09B05AB260679C50EEB8EADCFD235F563",
+            "salary_min": 76642.8,
+            "salary_max": 76642.8,
+            "posted_at": "2026-08-19T13:35:42Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849335243",
+            "title": "Software I&T Engineer , Amazon Leo for Government with Security Clearance",
+            "company": "Amazon",
+            "location": "Los Angeles, Los Angeles County",
+            "is_remote": true,
+            "description": "Description Amazon Leo is a initiative within Amazon that aims to revolutionize global connectivity through the development of a state-of-the-art Low Earth Orbit (LEO) interconnected satellite communication constellation. Our mission is to bridge the digital divide by delivering high-speed, low latency, internet services to underserved and unserved communities and remote communities around the world. By leveraging satellite technology, we are working towards a future where everyone has access t\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849335243?se=VlIw-fKc8RGrE9_MyxIs4g&utm_medium=api&utm_source=1a9d2e17&v=09C3FCDC47A180F39B8D7E0027126C823987FD3E",
+            "salary_min": 172345.22,
+            "salary_max": 172345.22,
+            "posted_at": "2026-08-20T02:00:38Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849417655",
+            "title": "Junior java developer /Data Analyst/Scientist",
+            "company": "SynergisticIT",
+            "location": "Los Angeles, Los Angeles County",
+            "is_remote": false,
+            "description": "Your Tech Career Is Still Within Reach? Rebuild Momentum With a Placement Process Even if you\u2019ve been rejected, laid off, or out of the field for years, your tech career is still within reach. SynergisticIT helps you rebuild your confidence and sharpen your skills through hands\u2011on real\u2011world projects. You\u2019ll also receive interview coaching and resume optimization that highlight your strengths. Also get marketed directly to Fortune 500 companies, giving you access to opportunities that most job \u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849417655?se=wEzp-fKc8RGwBe63zKMEtw&utm_medium=api&utm_source=1a9d2e17&v=1E5BCC36B1DE949C9A68E5CBBA074D0E177311CD",
+            "salary_min": 104043.52,
+            "salary_max": 104043.52,
+            "posted_at": "2026-08-20T05:39:27Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5850179978",
+            "title": "Business Intelligence Analyst III/IV",
+            "company": "UCLA Health",
+            "location": "Pico Heights, Los Angeles County",
+            "is_remote": false,
+            "description": "Description Join UCLA Health and help transform data into actionable insights that drive strategic decision-making and improve healthcare outcomes across one of the nation's leading academic health systems. As a Business Intelligence Analyst III/IV, you will provide advanced analytics, database management, and business intelligence support to UCLA Health. In this highly visible role, you will develop and maintain data solutions, dashboards, and reporting systems that support operational excelle\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5850179978?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=921582D880E979E111D9AC418E7F1DE2FEEB5B49",
+            "salary_min": 114287.01,
+            "salary_max": 114287.01,
+            "posted_at": "2026-08-20T19:41:09Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5850178128",
+            "title": "Manager Business Management 2",
+            "company": "Northrop Grumman",
+            "location": "Pico Heights, Los Angeles County",
+            "is_remote": false,
+            "description": "RELOCATION ASSISTANCE: Relocation assistance may be available CLEARANCE REQUIRED FOR START: No CLEARANCE TYPE: None TRAVEL: Yes, 25% of the Time Description At Northrop Grumman, our employees have incredible opportunities to work on revolutionary systems that impact people's lives around the world today, and for generations to come. Our pioneering and inventive spirit has enabled us to be at the forefront of many technological advancements in our nation's history - from the first flight across \u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5850178128?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=903F3591E3D5178CBAEEFBC41A65E8221AF95BE7",
+            "salary_min": 196157.69,
+            "salary_max": 196157.69,
+            "posted_at": "2026-08-20T19:35:35Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5850174003",
+            "title": "Manager, Business Analyst - Tax Transformation",
+            "company": "Deloitte",
+            "location": "Pico Heights, Los Angeles County",
+            "is_remote": false,
+            "description": "If you are a technology visionary with a passion for transforming global tax business with digital technology, consider working with the US Tax Transformation technology team. This is an exciting opportunity to support global execution of Deloitte's tax strategy as we shift from \"doing digital\" to \"being digital\" by reimagining how we engage with our clients, deliver our services, operate our business, and create value. Work you'll do As a Deloitte Tax Business Analyst, Manager you will be resp\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5850174003?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=822C82DBF855026D9518D182C8A97E99327FB283",
+            "salary_min": 175446.34,
+            "salary_max": 175446.34,
+            "posted_at": "2026-08-20T19:29:36Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849925723",
+            "title": "Manager Business Management 2 with Security Clearance",
+            "company": "Northrop Grumman",
+            "location": "Los Angeles, Los Angeles County",
+            "is_remote": false,
+            "description": "RELOCATION ASSISTANCE: Relocation assistance may be available CLEARANCE REQUIRED FOR START: No CLEARANCE TYPE: None TRAVEL: Yes, 25% of the TimeDescription At Northrop Grumman, our employees have incredible opportunities to work on revolutionary systems that impact people's lives around the world today, and for generations to come. Our pioneering and inventive spirit has enabled us to be at the forefront of many technological advancements in our nation's history - from the first flight across t\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849925723?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=7501167659E9FA171DB927527978D4F2A85E8117",
+            "salary_min": 184662.94,
+            "salary_max": 184662.94,
+            "posted_at": "2026-08-20T15:50:49Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849892809",
+            "title": "Business Analyst - Level III",
+            "company": "STAND 8",
+            "location": "Textile Finance, Los Angeles County",
+            "is_remote": false,
+            "description": "Stand8 provides end to end IT solutions to enterprise partners across the United States and with offices in Los Angeles, New York, New Jersey, Atlanta, and more including internationally in Mexico and India. The Business Analyst - Level III will perform business process analysis, requirements gathering, stakeholder coordination, data analysis, process improvement, documentation, IT alignment support, and project coordination activities. This role will review current business operations, documen\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849892809?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=443AFCF9ADCE2513C8BA58160373010920888B75",
+            "salary_min": 87671.61,
+            "salary_max": 87671.61,
+            "posted_at": "2026-08-20T14:01:36Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849887202",
+            "title": "Sr. IBM Data Power & APIC Developer",
+            "company": "ThinkNorth LLC",
+            "location": "Alondra Park, Los Angeles County",
+            "is_remote": false,
+            "description": "Hi, Job Title: Sr. IBM Data Power & APIC Developer Location: Torrance, CA - Hybrid Duration: 12 Months Job Description : Design develops and support enterprise API and integration solutions utilizing IBM API Connect APIC and IBM DataPower Develop and configure MultiProtocol Gateway MPGW services for enterprise integrations Configure and support Web Service Proxy WSP XML Firewall and MPGW services Design and implement B2B integrations with external trading partners using IBM DataPower Configure \u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849887202?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=264043CF11CF1D756309640322AD0BEEBC695497",
+            "salary_min": 152745.9,
+            "salary_max": 152745.9,
+            "posted_at": "2026-08-20T13:48:31Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849858009",
+            "title": "Senior HR Data/Report Systems Analyst (Oracle HCM) - Remote",
+            "company": "CEDARS-SINAI",
+            "location": "Los Angeles, Los Angeles County",
+            "is_remote": true,
+            "description": "Job Description Grow your career at Cedars-Sinai! Cedars-Sinai Medical Center has been named to the Honor Roll in U.S. News & World Report\u2019s \u201cBest Hospitals 2026-2027\u201d rankings . When you join our team, you\u2019ll gain access to our groundbreaking biomedical research facilities and sophisticated medical education programs. We offer learning programs, tuition reimbursement and performance-improvement projects so you can achieve certifications and degrees while gaining the knowledge and experience ne\u2026",
+            "apply_url": "https://www.adzuna.com/details/5849858009?utm_medium=api&utm_source=1a9d2e17",
+            "salary_min": 137062.69,
+            "salary_max": 137062.69,
+            "posted_at": "2026-08-20T12:22:27Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849461128",
+            "title": "Lead Business Analyst II",
+            "company": "Mattel HQ, Inc.",
+            "location": "El Segundo, Los Angeles County",
+            "is_remote": false,
+            "description": "Mattel HQ, Inc. has the following position available in El Segundo, CA: Lead Business Analyst II (MAT-VV): Partner with the business process owners to obtain & maintain an in-depth knowledge of Mattel business processes with attention to opportunities to champion improvement \u2013 both via process re-engineering & from automation through technology. 100% Telecommuting permitted from anywhere in the U.S. Annual salary range for this position is between $163,149 and $183,149. Send resume to: talentac\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849461128?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=34C43CDFD3C4B305F0AB65E749BB851E75966872",
+            "salary_min": 67459.5,
+            "salary_max": 67459.5,
+            "posted_at": "2026-08-20T05:45:41Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849440651",
+            "title": "SSC - Business Analyst (Los Angeles Air Force Base, CA)",
+            "company": "Integrated Data Services",
+            "location": "El Segundo, Los Angeles County",
+            "is_remote": false,
+            "description": "Company Overview: Integrated Data Services (IDS) is a leading provider of custom software products and Government financial management services. IDS was founded in 1997 in El Segundo, CA, and since that time has seen tremendous growth and success. Currently IDS has offices supporting customers nationwide. By providing customers with fast, efficient and reliable information systems and support services, IDS has become a preferred provider of financial and programmatic systems, services, and solu\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849440651?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=F0AEAD4FA64EFD664990959F741097C54E16462F",
+            "salary_min": 84254.77,
+            "salary_max": 84254.77,
+            "posted_at": "2026-08-20T05:43:43Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5849417826",
+            "title": "SSC BZ - Senior Acquisition Business Analyst (Los Angeles Air Force Base, CA)",
+            "company": "Integrated Data Services",
+            "location": "El Segundo, Los Angeles County",
+            "is_remote": false,
+            "description": "Company Overview: Integrated Data Services (IDS) is a leading provider of custom software products and Government financial management services. IDS was founded in 1997 in El Segundo, CA, and since that time has seen tremendous growth and success. Currently IDS has offices supporting customers nationwide. By providing customers with fast, efficient and reliable information systems and support services, IDS has become a preferred provider of financial and programmatic systems, services, and solu\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5849417826?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=D573C5AEDA7A1282ADF223C6B226C46B06A7FDC3",
+            "salary_min": 133007.6,
+            "salary_max": 133007.6,
+            "posted_at": "2026-08-20T05:39:29Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5848975582",
+            "title": "FP&A Investments Analyst",
+            "company": "RTX Corporation",
+            "location": "El Segundo, Los Angeles County",
+            "is_remote": true,
+            "description": "Date Posted: 2026-08-17 Country: United States of America Location: US-CA-EL SEGUNDO-R01 ~ 2000 E Imperial Hwy ~ BLDG R01 Position Role Type: Remote U.S. Citizen, U.S. Person, or Immigration Status Requirements: U.S. citizenship is required, as only U.S. citizens are authorized to access information under this program/contract. Security Clearance Type: None/Not Required Security Clearance Status: Not Required At RTX, the world's largest aerospace and defense company, 185,000 great minds are uni\u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5848975582?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=03B81B9C7FA6A8EC535F530DA7755E4E5B6F44F0",
+            "salary_min": 196794.38,
+            "salary_max": 196794.38,
+            "posted_at": "2026-08-19T19:34:15Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5848972374",
+            "title": "Analyst I Business Operations",
+            "company": "Gilead Sciences, Inc.",
+            "location": "El Segundo, Los Angeles County",
+            "is_remote": false,
+            "description": "Onsite - Hybrid Eligible United States - California - Santa Monica United States - California - Thousand Oaks United States - California - El Segundo Full time R0054226 We're here for one reason and one reason only - to cure cancer. Every moment is dedicated to developing treatments and every action moves us one step closer to our goal. We've made incredible scientific breakthroughs and our pioneering personalized CAR T-cell therapies have changed the paradigm. But we're not finished yet. Join \u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5848972374?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=86404495D3E3F1375299FDEB507D878C2748C8D6",
+            "salary_min": 130805.09,
+            "salary_max": 130805.09,
+            "posted_at": "2026-08-19T19:29:03Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5847877261",
+            "title": "Business Intelligence Analyst",
+            "company": "Vicar Operating dba VCA",
+            "location": "Los Angeles, Los Angeles County",
+            "is_remote": false,
+            "description": "VCA is looking for a Business Intelligence Analyst who can turn complex operational and clinical data into clearer decisions across our network of veterinary hospitals. This person will build and maintain PowerBI/Power Apps reporting, work confidently with SQL and data models, investigate the reasons behind performance trends, and partner with Business Operations and hospital leaders to improve scheduling, capacity, workflow, productivity and financial performance. We are looking for someone wh\u2026",
+            "apply_url": "https://www.adzuna.com/details/5847877261?utm_medium=api&utm_source=1a9d2e17",
+            "salary_min": 81601,
+            "salary_max": 140402,
+            "posted_at": "2026-08-19T02:11:24Z"
+          },
+          {
+            "source": "adzuna",
+            "external_id": "5847815234",
+            "title": "FP&A Investments Analyst",
+            "company": "RTX",
+            "location": "El Segundo, Los Angeles County",
+            "is_remote": true,
+            "description": "Date Posted: 2026-08-17&xa;&xa; Country: United States of America&xa;&xa; Location: US-CA-EL SEGUNDO-R01 ~ 2000 E Imperial Hwy ~ BLDG R01&xa;&xa; Position Role Type: Remote&xa;&xa; U.S. Citizen, U.S. Person, or Immigration Status Requirements: U.S. citizenship is required, as only U.S. citizens are authorized to access information under this program/contract.&xa;&xa; Security Clearance Type: None/Not Required&xa;&xa; Security Clearance Status: Not Required At RTX, the world's largest aerospace \u2026",
+            "apply_url": "https://www.adzuna.com/land/ad/5847815234?se=aNt_-vKc8RGh89QVKKhZIQ&utm_medium=api&utm_source=1a9d2e17&v=F0972B31604E81834FA18746FB50D3C2D0242E2A",
+            "salary_min": 0,
+            "salary_max": 131100,
+            "posted_at": "2026-08-19T01:14:12Z"
+          }
+        ]
+      }
+    },
+    {
+      "type": "reasoning",
+      "text": "Got 18 postings \u2014 now I'll score all of them simultaneously before deciding on enrichment."
+    }
+  ]
+}

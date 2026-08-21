@@ -81,7 +81,7 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
     enrich_calls = 0
     saved_count = 0
 
-    while iteration < MAX_ITERATIONS:
+    while iteration < max_iterations:
         iteration += 1
 
         response = client.messages.create(
@@ -91,6 +91,7 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
             tools=tools,
             messages=messages
         )
+        print(f"stop_reason: {response.stop_reason}")
         total_input_tokens += response.usage.input_tokens
         total_output_tokens += response.usage.output_tokens
         messages.append({"role": "assistant", "content": response.content})
@@ -119,6 +120,7 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
             break
         tool_results = []
         for block in tool_use_blocks:
+            trace.append({"type": "tool_call", "tool": block.name, "input": dict(block.input)})
             try:
                 kwargs = dict(block.input)
                 if block.name == "enrich_contact":
