@@ -29,7 +29,7 @@ const NAV_LINKS = [
 ];
 
 export default function DashboardNavbar({
-  isGuest = False,
+  isGuest = false,
   onLogout,
 }: DashboardNavbarProps) {
   const [open, setOpen] = useState(false);
