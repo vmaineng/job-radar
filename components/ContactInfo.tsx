@@ -5,7 +5,7 @@ type Props = {
 };
 
 export default function ContactInfo({ job }: Props) {
-  const contact = job.contacts?.[0];
+  const contact = job.contact;
   if (!contact) return null;
 
   return (
