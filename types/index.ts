@@ -3,7 +3,7 @@ export type Contact = {
     title: string | null;
     email: string | null;
     linkedin_search_url: string | null;
-    source:"hunter" | "linkedin_search_link" | "budget_exceeded";
+    source:string | null;
 }
 
 export type Job = {
@@ -16,5 +16,5 @@ export type Job = {
     relevance_score: number; 
     relevance_reason: string;
     status: "new" | "applied" | "dismissed";
-    contacts: Contact | null;
+    contact: Contact | null;
 }

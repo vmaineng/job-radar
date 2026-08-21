@@ -20,16 +20,14 @@ const SAMPLE_JOBS: Job[] = [
       "Strong match on React + TypeScript experience and your recent bootcamp projects.",
     apply_url: "#",
     status: "new",
-    contacts: [
-      {
-        full_name: "Jordan Reyes",
-        title: "Engineering Manager",
-        email: null,
-        linkedin_search_url:
-          "https://www.linkedin.com/search/results/people/?keywords=Jordan%20Reyes%20Acme%20Robotics",
-        source: "sample",
-      },
-    ],
+    contact: {
+      full_name: "Jordan Reyes",
+      title: "Engineering Manager",
+      email: null,
+      linkedin_search_url:
+        "https://www.linkedin.com/search/results/people/?keywords=Jordan%20Reyes%20Acme%20Robotics",
+      source: "sample",
+    },
   },
   {
     id: "sample-2",
@@ -42,15 +40,13 @@ const SAMPLE_JOBS: Job[] = [
       "Entry-level title match with FastAPI backend work aligning to your recent projects.",
     apply_url: "#",
     status: "new",
-    contacts: [
-      {
-        full_name: "Test2",
-        title: "CTO",
-        email: "test@gmail.com",
-        linkedin_search_url: "test@linkedin.com",
-        source: "LinkedIn",
-      },
-    ],
+    contact: {
+      full_name: "Test2",
+      title: "CTO",
+      email: "test@gmail.com",
+      linkedin_search_url: "test@linkedin.com",
+      source: "LinkedIn",
+    },
   },
 ];
 
