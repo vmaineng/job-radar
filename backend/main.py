@@ -4,6 +4,8 @@ load_dotenv()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from datetime import date, datetime, timezone
+
 from agent.runner import run_job_radar_agent
 from storage import get_dashboard_jobs, supabase
 from demo import router as demo_router
@@ -12,7 +14,7 @@ app = FastAPI(title="Job Radar")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000", "https://job-radar-fawn.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
