@@ -48,4 +48,6 @@ async def demo_run(req: DemoRunRequest):
         "candidate_profile": fixture["candidate_profile"],
         "saved_count": fixture["saved_count"],
         "trace": fixture["trace"],
+         "jobs": fixture.get("jobs", []),
+        "is_prerecorded": fixture.get("is_prerecorded", False),
     }
