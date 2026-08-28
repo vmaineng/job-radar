@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
-import AuthLayout from "@/components/AuthLayout";
-import AuthInput from "@/components/AuthInput";
+import AuthLayout from "@/components/auth/AuthLayout";
+import AuthInput from "@/components/auth/AuthInput";
 
 export default function LoginPage() {
   const router = useRouter();

@@ -1,6 +1,6 @@
 "use client";
 
-import MarketingNavbar from "./MarketingNavbar";
+import MarketingNavbar from "./components/MarketingNavbar";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 

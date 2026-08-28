@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode } from "react";
-import RadarSignature from "./RadarSignature";
+import RadarSignature from "../RadarSignature";
 import Link from "next/link";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
