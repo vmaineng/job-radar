@@ -1,7 +1,7 @@
 "use client";
 
 import JobCard from "@/components/Jobcard";
-import DashboardNavbar from "./DashboardNavbar";
+import DashboardNavbar from "./components/DashboardNavbar";
 import { useJobs } from "../../hooks/useJobs";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
