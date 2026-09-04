@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { renderResultSummary } from "@/lib/formatTraceResult";
 import MarketingNavbar from "@/app/(marketing)/components/MarketingNavbar";
-import JobCard from "@/components/Jobcard";
+import JobCard from "@/components/JobCard";
 import { Job } from "@/types";
 
 type TraceStep =
