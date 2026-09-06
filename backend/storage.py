@@ -1,11 +1,14 @@
 import os
 from datetime import datetime, timedelta, timezone
 from supabase import create_client, Client
+import logging   
 
-supabase: Client = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_SERVICE_KEY"),
-)
+logger = logging.getLogger(__name__)
+
+url ,key = os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_SERVICE_KEY")
+if not url or not key:
+    raise RuntimeError("SUPABASE_URL and SUPABASE_SERVICE_KEY must be set")
+supabase: Client = create_client(url,key)
 
 
 def job_already_seen(source: str, external_id: str) -> bool:
@@ -19,10 +22,15 @@ def job_already_seen(source: str, external_id: str) -> bool:
     return len(res.data) > 0
 
 
-def save_job(job: dict) -> str:
+def save_job(job: dict) -> str | None:
     """Insert a new job row, return its id."""
-    res = supabase.table("jobs").insert(job).execute()
-    return res.data[0]["id"]
+    try:
+        res = supabase.table("jobs").insert(job).execute()
+        return res.data[0]["id"]
+    except Exception as e:
+        logger.error(f"save_job failed for {job.get('external_id')}: {e}")
+        return None
+
 
 
 def save_contact(job_id: str, contact: dict):
