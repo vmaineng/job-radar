@@ -8,6 +8,8 @@ decision, not a research project.
 Built as a working demonstration of a real Claude tool-calling agent (not a
 hardcoded pipeline dressed up as one), aimed at showing the reasoning process
 itself, not just the final output.
+
+[![Live Link](https://img.shields.io/badge/demo-live-brightgreen)](https://job-radar-fawn.vercel.app/)
  
 ## Why this exists
  
