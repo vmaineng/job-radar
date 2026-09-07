@@ -2,12 +2,16 @@ import os
 import re 
 import urllib.parse
 import httpx
-from anthropic import Anthropic
+from anthropic import AsyncAnthropic
+import json
+import logging
+
+log = logging.getLogger(__name__)
 
 HUNTER_API_KEY = os.getenv("HUNTER_API_KEY")
 HUNTER_DOMAIN_SEARCH_URL = "https://api.hunter.io/v2/domain-search"
 
-anthropic_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+anthropic_client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 PREFERRED_TITLE_KEYWORDS = ["recruit", "talent", "engineering manager", "people", "software engineer"]
 
@@ -15,7 +19,7 @@ def _naive_guess_domain(company_name: str) -> str:
     slug = re.sub(r"[^a-z0-9]", "", company_name.lower())
     return f"{slug}.com"
 
-def _claude_guess_domain(company_name: str) -> str | None:
+async def _claude_guess_domain(company_name: str) -> str | None:
     """Ask Claude for the company's real primary domain. Returns None if
     Claude doesn't recognize the company or isn't confident -- callers
     should fall back to _naive_guess_domain in that case."""
@@ -29,7 +33,7 @@ Use the company's main corporate domain (e.g. for a games studio owned by a
 larger company, prefer the studio's own domain if well-known, otherwise the
 parent company's domain)."""
     try:
-        resp = anthropic_client.messages.create(
+        resp = await anthropic_client.messages.create(
             model="claude-sonnet-4-6",
             max_tokens=50,
             messages=[{"role": "user", "content": prompt}],
@@ -39,18 +43,19 @@ parent company's domain)."""
         domain = data.get("domain")
         return domain if domain else None
     except Exception:
+        log.debug(f"Claude domain guess failed for {company_name!r}: {e}")
         return None  # any failure here just means "didn't know" -- never block the pipeline
 
-def _resolve_domain(company_name:str, company_domain:str | None) -> str:
+async def _resolve_domain(company_name:str, company_domain:str | None) -> str:
     if company_domain:
         return company_domain
-    claude_guess = _claude_guess_domain(company_name)
+    claude_guess = await _claude_guess_domain(company_name)
     if claude_guess:
         return claude_guess
     return _naive_guess_domain(company_name)
 
 async def find_contact(company_name: str, company_domain: str | None = None) -> dict:
-    domain = _resolve_domain(company_name, company_domain)
+    domain = await _resolve_domain(company_name, company_domain)
     
     if HUNTER_API_KEY:
         try:
@@ -79,7 +84,7 @@ async def find_contact(company_name: str, company_domain: str | None = None) -> 
         except httpx.HTTPError:
             pass
 
-        query = urllib.parse.quote(f"{company_name} Engineering Manager OR Recruiter")
+    query = urllib.parse.quote(f"{company_name} Engineering Manager OR Recruiter")
     return {
         "full_name": None,
         "title": None,
