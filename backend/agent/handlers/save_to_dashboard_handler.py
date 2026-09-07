@@ -1,4 +1,8 @@
 from storage import job_already_seen, save_job, save_contact
+import asyncio
+import logging
+
+logger = logging.getLogger(__name__)
 
 async def save_to_dashboard_handler(
     job: dict,
@@ -11,10 +15,18 @@ async def save_to_dashboard_handler(
     to the raw job dict from search_jobs, writes it, and optionally
     attaches a contact (only present when this was the enriched top pick).
     """
-    if job_already_seen(job["source"], job["external_id"]):
-        return {"status": "skipped", "reason": "already seen"}
-    
+    try:
+        source = job["source"]
+        external_id = job["external_id"]
+    except KeyError as e:
+        return {"status": "error", "reason": f"job missing required field: {e}", "job_id": None}
 
+
+    already_seen = await asyncio.to_thread(job_already_seen, source, external_id)
+    if already_seen:
+        return {"status": "skipped", "reason": "already seen", "job_id": None}
+
+    
     job = {**job, "relevance_score": relevance_score, "relevance_reason": relevance_reason}
 
     job_id = save_job(job)

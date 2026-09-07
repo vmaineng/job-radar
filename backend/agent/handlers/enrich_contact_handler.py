@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from enrich_contacts import find_contact
 from storage import supabase
 import logging
+import asyncio
 
 logger = logging.getLogger(__name__)
 
@@ -75,5 +76,5 @@ async def enrich_contact_handler(
 
     result = await find_contact(company_name, company_domain)
     if result.get("source") == "hunter":
-        _increment_hunter_usage()
+        await asyncio.to_thread(_increment_hunter_usage)
     return result
