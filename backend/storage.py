@@ -12,14 +12,18 @@ supabase: Client = create_client(url,key)
 
 
 def job_already_seen(source: str, external_id: str) -> bool:
-    res = (
+    try: 
+        res = (
         supabase.table("jobs")
         .select("id")
         .eq("source", source)
         .eq("external_id", external_id)
         .execute()
     )
-    return len(res.data) > 0
+        return len(res.data) > 0
+    except Exception as e:
+        logger.error(f"job_already_seen failed for {source}/{external_id}: {e}")
+        return False
 
 
 def save_job(job: dict) -> str | None:

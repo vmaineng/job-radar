@@ -15,12 +15,13 @@ async def save_to_dashboard_handler(
         return {"status": "skipped", "reason": "already seen"}
     
 
-    job["relevance_score"] = relevance_score
-    job["relevance_reason"] = relevance_reason
+    job = {**job, "relevance_score": relevance_score, "relevance_reason": relevance_reason}
 
     job_id = save_job(job)
+    if job_id is None:
+        return {"status": "error", "reason": "failed to save job", "job_id": None}
 
-    if contact:
+    if contact is not None:
         save_contact(job_id, contact)
 
     return {"status": "saved", "job_id": job_id}
