@@ -89,14 +89,14 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
     while iteration < max_iterations:
         iteration += 1
 
-        response = client.messages.create(
+        response =  await client.messages.create(
             model="claude-sonnet-4-6",
             max_tokens=2000,
             system=system_prompt,
             tools=tools,
             messages=messages
         )
-        log.debug(f"stop_reason: {response.stop_reason}")
+        log.debug("stop_reason: %s", response.stop_reason)
         total_input_tokens += response.usage.input_tokens
         total_output_tokens += response.usage.output_tokens
         messages.append({"role": "assistant", "content": response.content})
@@ -150,7 +150,7 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
         messages.append({"role": "user", "content": tool_results})
 
     if iteration >= max_iterations:
-        log.warning(f"Job Radar agent hit MAX_ITERATIONS ({max_iterations})")
+        log.warning(f"Job Radar agent hit max_iterations ({max_iterations})")
 
     cost_estimate = (total_input_tokens / 1_000_000 * 3.00) + (total_output_tokens / 1_000_000 * 15.00)
 
