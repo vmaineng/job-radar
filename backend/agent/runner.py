@@ -1,9 +1,14 @@
 import logging
-from anthropic import Anthropic
+import os
+from anthropic import AsyncAnthropic
 from agent.tools import tool_functions, build_tools
+import json
 
 log = logging.getLogger(__name__)
-client = Anthropic()
+
+if not os.getenv("ANTHROPIC_API_KEY"):
+    raise RuntimeError("ANTHROPIC_API_KEY must be set")
+client = AsyncAnthropic()
 
 MAX_ITERATIONS = 15
 MAX_TOOL_CALLS = 40
@@ -91,7 +96,7 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
             tools=tools,
             messages=messages
         )
-        print(f"stop_reason: {response.stop_reason}")
+        log.debug(f"stop_reason: {response.stop_reason}")
         total_input_tokens += response.usage.input_tokens
         total_output_tokens += response.usage.output_tokens
         messages.append({"role": "assistant", "content": response.content})
@@ -106,7 +111,7 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
         tool_use_blocks = [b for b in response.content if b.type == "tool_use"]
         total_tool_calls += len(tool_use_blocks)
 
-        if total_tool_calls > MAX_TOOL_CALLS:
+        if total_tool_calls > max_tool_calls:
             trace.append({"type": "system", "text": "Tool call budget exceeded — wrapping up."})
             tool_results = [
                 {
@@ -140,12 +145,12 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
             tool_results.append({
                 "type": "tool_result",
                 "tool_use_id": block.id,
-                "content": str(result)
+                "content": json.dumps(result)
             })
         messages.append({"role": "user", "content": tool_results})
 
-    if iteration >= MAX_ITERATIONS:
-        log.warning(f"Job Radar agent hit MAX_ITERATIONS ({MAX_ITERATIONS})")
+    if iteration >= max_iterations:
+        log.warning(f"Job Radar agent hit MAX_ITERATIONS ({max_iterations})")
 
     cost_estimate = (total_input_tokens / 1_000_000 * 3.00) + (total_output_tokens / 1_000_000 * 15.00)
 

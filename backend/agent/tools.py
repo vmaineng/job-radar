@@ -38,16 +38,19 @@ _ENRICH_CONTACT_TOOL = {
 }
 
 
-def build_tools(skip_enrichment: bool = False) -> list[dict]:
+def build_tools(skip_enrichment: bool = False) -> dict:
     """
     Returns the tool schema list Claude sees. When skip_enrichment is True,
     enrich_contact is omitted entirely — not just discouraged — so Claude
     has no way to call it, protecting the Hunter monthly quota on demo runs.
     """
-    tools = [_SEARCH_JOBS_TOOL, _SAVE_TO_DASHBOARD_TOOL]
+    functions = {
+        "search_jobs": search_jobs_handler,
+        "save_to_dashboard": save_to_dashboard_handler,
+    }
     if not skip_enrichment:
-        tools.append(_ENRICH_CONTACT_TOOL)
-    return tools
+        functions["enrich_contact"] = enrich_contact_handler
+    return functions
 
 
 
