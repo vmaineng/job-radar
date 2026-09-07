@@ -1,10 +1,9 @@
 import asyncio
-from datetime import date, datetime, timezone
 from fastapi import APIRouter
 from pydantic import BaseModel
 
 from demo_fixtures import DEMO_TRACES
-from storage import supabase
+from storage import save_demo_run
 
 router = APIRouter(prefix="/api", tags=["demo"])
 
@@ -27,21 +26,16 @@ async def demo_run(req: DemoRunRequest):
     if not req.is_valid_email:
             return {"status": "error", "message": "Please enter a valid email."} 
     
-
-    existing = supabase.table("demo_runs").select("id").eq("email", req.email).execute()
-    if existing.data:
-        return {"status": "already_used", "message": "This email has already used its demo run."}
-
     fixture = DEMO_TRACES[req.preset]
-
+    # Simulate the agent "thinking" through each trace step in real time,
+    # so the demo doesn't just dump the full result instantly.
     for _ in fixture["trace"]:
         await asyncio.sleep(STEP_DELAY_SECONDS)
 
-    supabase.table("demo_runs").insert({
-        "email": req.email,
-        "preset": req.preset,
-        "requested_at": datetime.now(timezone.utc).isoformat(),
-    }).execute()
+    try:
+        await asyncio.to_thread(save_demo_run, req.email, req.preset)
+    except Exception:
+         return {"status": "already_used", "message": "This email has already used its demo run."}
 
     return {
         "status": "success",

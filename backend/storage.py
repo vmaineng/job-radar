@@ -59,3 +59,14 @@ def get_dashboard_jobs(min_score: int = 50, max_age_days: int = 14, today_only: 
         .execute()
     )
     return jobs.data
+
+def demo_run_exists(email: str) -> bool:
+    res = supabase.table("demo_runs").select("id").eq("email", email).execute()
+    return bool(res.data)
+
+def save_demo_run(email: str, preset: str) -> None:
+    supabase.table("demo_runs").insert({
+        "email": email,
+        "preset": preset,
+        "requested_at": datetime.now(timezone.utc).isoformat(),
+    }).execute()
