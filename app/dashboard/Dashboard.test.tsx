@@ -31,7 +31,7 @@ jest.mock("./components/DashboardNavbar", () => ({
   ),
 }));
 
-jest.mock("@/components/Jobcard", () => ({
+jest.mock("@/components/JobCard", () => ({
   __esModule: true,
   default: ({ job }: { job: any }) => (
     <div data-testid="job-card">{job.title}</div>
