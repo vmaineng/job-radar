@@ -1,9 +1,10 @@
 import asyncio
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from pydantic import BaseModel
 
 from demo_fixtures import DEMO_TRACES
 from storage import save_demo_run
+from main import limiter
 
 router = APIRouter(prefix="/api", tags=["demo"])
 
@@ -19,7 +20,8 @@ class DemoRunRequest(BaseModel):
 
 
 @router.post("/demo-run")
-async def demo_run(req: DemoRunRequest):
+@limiter.limit("3/hour")
+async def demo_run(request: Request, req: DemoRunRequest):
     if req.preset not in DEMO_TRACES:
         return {"status": "error", "message": "Invalid preset."}
 

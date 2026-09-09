@@ -1,16 +1,29 @@
 from dotenv import load_dotenv
 load_dotenv()
 
+import asyncio
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 
 from agent.runner import run_job_radar_agent
 from storage import get_dashboard_jobs, supabase
 from demo import router as demo_router
 
+from limiter import limiter
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+
+
+
 app = FastAPI(title="Job Radar")
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,7 +36,7 @@ app.add_middleware(
 app.include_router(demo_router) 
 
 def _has_run_today() -> bool:
-    today = date.today().isoformat()
+    today = datetime.now(timezone.utc).date().isoformat()
     res = (
         supabase.table("agent_runs")
         .select("id")
@@ -44,9 +57,9 @@ def list_jobs(min_score: int = 50, max_age_days: int = 14, today_only: bool = Fa
 
 @app.post("/api/run-now")
 async def trigger_run():
-    if _has_run_today():
+    if await asyncio.to_thread(_has_run_today()):
         return {"status": "skipped", "reason": "already ran today"}
 
     result = await run_job_radar_agent()
-    _log_run(result)
+    await asyncio.to_thread(_log_run(result))
     return {"status": "complete", **result}
