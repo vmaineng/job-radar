@@ -2,8 +2,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import asyncio
+from auth import get_current_user
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 from datetime import datetime, timezone
@@ -55,7 +56,7 @@ def list_jobs(min_score: int = 50, max_age_days: int = 14, today_only: bool = Fa
     return get_dashboard_jobs(min_score=min_score, max_age_days=max_age_days, today_only=today_only)
 
 @app.post("/api/run-now")
-async def trigger_run():
+async def trigger_run(user=Depends(get_current_user)):
     if await asyncio.to_thread(_has_run_today()):
         return {"status": "skipped", "reason": "already ran today"}
 
