@@ -10,7 +10,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { useTheme } from "@/context/ThemeContext";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "next/link";
 
 interface DashboardNavbarProps {
@@ -33,7 +33,6 @@ export default function DashboardNavbar({
   onLogout,
 }: DashboardNavbarProps) {
   const [open, setOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   return (
     <nav className="fixed top-0 left-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
@@ -60,17 +59,7 @@ export default function DashboardNavbar({
             ))}
           </ul>
           <div className="flex items-center gap-6">
-            <button
-              onClick={toggleTheme}
-              className="rounded-lg p-2 text-primary transition hover:bg-card"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </button>
+            <ThemeToggle className="rounded-lg p-2 text-primary transition hover:bg-card" />
 
             {isGuest ? (
               <div className="flex items-center gap-4">
@@ -99,18 +88,12 @@ export default function DashboardNavbar({
           </div>
         </div>
         <div className="md:hidden flex items-center gap-4">
-          <button onClick={toggleTheme} className="text-primary">
-            {theme === "dark" ? (
-              <Sun className="w-4 h-4" />
-            ) : (
-              <Moon className="w-4 h-4" />
-            )}
-          </button>
+          <ThemeToggle className="text-primary" />
           <button
-            className="text-2xl text-primary"
-            onClick={() => setOpen(!open)}
+            className="text-primary"
+            onClick={() => setOpen((prev) => !prev)}
           >
-            {open ? "x" : "="}
+            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
