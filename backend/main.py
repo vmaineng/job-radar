@@ -57,7 +57,7 @@ def list_jobs(min_score: int = 50, max_age_days: int = 14, today_only: bool = Fa
 
 @app.post("/api/run-now")
 async def trigger_run(user=Depends(get_current_user)):
-    if await asyncio.to_thread(_has_run_today()):
+    if await asyncio.to_thread(_has_run_today):
         return {"status": "skipped", "reason": "already ran today"}
 
     result = await run_job_radar_agent()
