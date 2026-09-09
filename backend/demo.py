@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 from demo_fixtures import DEMO_TRACES
 from storage import save_demo_run
-from main import limiter
+from limiter import limiter
 
 router = APIRouter(prefix="/api", tags=["demo"])
 

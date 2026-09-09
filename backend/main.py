@@ -18,7 +18,6 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
 
-
 app = FastAPI(title="Job Radar")
 
 app.state.limiter = limiter
