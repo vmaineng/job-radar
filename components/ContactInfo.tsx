@@ -16,15 +16,17 @@ export default function ContactInfo({ job }: Props) {
           {contact.title ? ` — ${contact.title}` : ""}
           {contact.email ? ` · ${contact.email}` : " · no email found"}
         </span>
-      ) : (
+      ) : contact.linkedin_search_url ? (
         <a
-          href={contact.linkedin_search_url ?? "#"}
+          href={contact.linkedin_search_url}
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary underline hover:opacity-80"
         >
           Search for a contact on LinkedIn
         </a>
+      ) : (
+        <span className="text-secondary">No contact found</span>
       )}
     </div>
   );
