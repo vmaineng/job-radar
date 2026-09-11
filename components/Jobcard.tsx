@@ -1,12 +1,12 @@
 import { Job } from "../types";
 import ContactInfo from "./ContactInfo";
 
-type jobProps = {
+type JobCardProps = {
   job: Job;
   onMarkApplied: (id: string) => void;
 };
 
-export default function JobCard({ job, onMarkApplied }: jobProps) {
+export default function JobCard({ job, onMarkApplied }: JobCardProps) {
   return (
     <div
       className="bg-card
@@ -62,11 +62,12 @@ export default function JobCard({ job, onMarkApplied }: jobProps) {
       </div>
 
       <div className="flex shrink-0 flex-col gap-3">
-        <a
-          href={job.apply_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-xl
+        {job.apply_url ? (
+          <a
+            href={job.apply_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl
             bg-primary
             px-4
             py-2
@@ -77,9 +78,14 @@ export default function JobCard({ job, onMarkApplied }: jobProps) {
            border-border
             transition-colors
             hover:bg-primary-hover"
-        >
-          Apply
-        </a>
+          >
+            Apply
+          </a>
+        ) : (
+          <span className="rounded-xl border border-border px-4 py-2 text-center text-sm text-secondary">
+            No link available
+          </span>
+        )}
         {job.status !== "applied" && (
           <button
             onClick={() => onMarkApplied(job.id)}
