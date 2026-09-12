@@ -6,7 +6,7 @@ import { JobsPanel } from "./components/JobsPanel";
 import { useJobs } from "../../hooks/useJobs";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { SAMPLE_JOBS } from "@/lib/samepleJobs";
+import { SAMPLE_JOBS } from "@/lib/sampleJobs";
 
 export default function Dashboard() {
   const { jobs, loading, error, markApplied } = useJobs();
