@@ -68,7 +68,7 @@ export function DemoRunForm({
       <button
         type="submit"
         disabled={loading || !email}
-        className="w-full bg-primary hover:bg-primary-hover text-white rounded-md py-2 font-medium disabled:opacity-50 transition-colors"
+        className="w-full bg-primary hover:bg-primary-hover text-primary rounded-md py-2 font-medium disabled:opacity-50 transition-colors"
       >
         {loading ? "Running agent..." : "Run Agent"}
       </button>

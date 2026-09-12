@@ -26,7 +26,7 @@ export default function Hero() {
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
               href="/dashboard"
-              className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-hover"
+              className="rounded-xl bg-primary px-6 py-3 font-semibold text-primary transition hover:bg-primary-hover"
             >
               Start Free
             </Link>

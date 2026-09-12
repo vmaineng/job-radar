@@ -21,16 +21,16 @@ export default function AuthLayout({
         <RadarSignature />
         <Link
           href="/"
-          className="absolute top-6 left-6 z-10 text-sm font-semibold text-white/80 tracking-tight transition-opacity hover:opacity-100 hover:underline"
+          className="absolute top-6 left-6 z-10 text-sm font-semibold text-primary/80 tracking-tight transition-opacity hover:opacity-100 hover:underline"
         >
           Job Radar
         </Link>
 
         <div className="relative z-10 px-12 text-center">
-          <span className="text-3xl font-semibold text-white tracking-tight">
+          <span className="text-3xl font-semibold text-primary tracking-tight">
             Job Radar
           </span>
-          <p className="mt-3 text-white/70 max-w-xs mx-auto text-sm leading-relaxed">
+          <p className="mt-3 text-primary/70 max-w-xs mx-auto text-sm leading-relaxed">
             Scanning the field daily so you show up with a match, a score, and a
             contact - not a cold application.
           </p>

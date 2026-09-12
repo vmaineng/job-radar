@@ -16,7 +16,7 @@ export function GuestBanner() {
         </Link>
         <Link
           href="/signup"
-          className="text-sm font-medium bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary-hover"
+          className="text-sm font-medium bg-primary text-primary px-3 py-1.5 rounded-lg hover:bg-primary-hover"
         >
           Sign up
         </Link>
