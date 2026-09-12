@@ -74,6 +74,7 @@ export default function JobCard({ job, onMarkApplied }: JobCardProps) {
             text-center
             text-sm
             font-medium
+            text-primary
            border
            border-border
             transition-colors
