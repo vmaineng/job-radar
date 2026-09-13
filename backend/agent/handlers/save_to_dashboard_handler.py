@@ -5,6 +5,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 async def save_to_dashboard_handler(
+          user_id: str,
     job: dict,
     relevance_score: int,
     relevance_reason: str,
@@ -22,18 +23,18 @@ async def save_to_dashboard_handler(
         return {"status": "error", "reason": f"job missing required field: {e}", "job_id": None}
 
 
-    already_seen = await asyncio.to_thread(job_already_seen, source, external_id)
+    already_seen = await asyncio.to_thread(job_already_seen, user_id, source, external_id)
     if already_seen:
         return {"status": "skipped", "reason": "already seen", "job_id": None}
 
     
     job = {**job, "relevance_score": relevance_score, "relevance_reason": relevance_reason}
 
-    job_id = save_job(job)
+    job_id = await asyncio.to_thread(save_job, user_id, job)
     if job_id is None:
         return {"status": "error", "reason": "failed to save job", "job_id": None}
 
     if contact is not None:
-        save_contact(job_id, contact)
+        await asyncio.to_thread(save_contact, job_id, contact)
 
     return {"status": "saved", "job_id": job_id}

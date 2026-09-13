@@ -11,11 +11,12 @@ if not url or not key:
 supabase: Client = create_client(url,key)
 
 
-def job_already_seen(source: str, external_id: str) -> bool:
+def job_already_seen(user_id: str, source: str, external_id: str) -> bool:
     try: 
         res = (
         supabase.table("jobs")
         .select("id")
+        .eq("user_id", user_id)
         .eq("source", source)
         .eq("external_id", external_id)
         .execute()
@@ -26,10 +27,11 @@ def job_already_seen(source: str, external_id: str) -> bool:
         return False
 
 
-def save_job(job: dict) -> str | None:
+def save_job(user_id: str, job: dict) -> str | None:
     """Insert a new job row, return its id."""
     try:
-        res = supabase.table("jobs").insert(job).execute()
+        row = {**job, "user_id": user_id}
+        res = supabase.table("jobs").insert(row).execute()
         return res.data[0]["id"]
     except Exception as e:
         logger.error(f"save_job failed for {job.get('external_id')}: {e}")
@@ -42,7 +44,7 @@ def save_contact(job_id: str, contact: dict):
     supabase.table("contacts").insert(contact).execute()
 
 
-def get_dashboard_jobs(min_score: int = 50, max_age_days: int = 14, today_only: bool = False):
+def get_dashboard_jobs(user_id: str,min_score: int = 50, max_age_days: int = 14, today_only: bool = False):
     """Fetch recent, relevant jobs with their contacts for the dashboard."""
     if today_only:
         now = datetime.now(timezone.utc)
@@ -52,6 +54,7 @@ def get_dashboard_jobs(min_score: int = 50, max_age_days: int = 14, today_only: 
     jobs = (
         supabase.table("jobs")
         .select("*, contacts(*)")
+        .eq("user_id", user_id)
         .gte("relevance_score", min_score)
         .gte("found_at", cutoff)
         .order("found_at", desc=True)
