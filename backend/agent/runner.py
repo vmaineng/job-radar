@@ -1,7 +1,7 @@
 import logging
 import os
 from anthropic import AsyncAnthropic
-from agent.tools import tool_functions, build_tools
+from agent.tools import get_tool_functions, build_tools
 import json
 
 log = logging.getLogger(__name__)
@@ -76,6 +76,7 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
     max_tool_calls = DEMO_MAX_TOOL_CALLS if demo_mode else MAX_TOOL_CALLS
 
     tools = build_tools(skip_enrichment=skip_enrichment)
+    tool_functions = get_tool_functions(skip_enrichment=skip_enrichment)
     system_prompt = build_system_prompt(skip_enrichment=skip_enrichment)
 
     messages = [{"role": "user", "content": "Run today's job search."}]

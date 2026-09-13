@@ -44,6 +44,19 @@ def build_tools(skip_enrichment: bool = False) -> dict:
     enrich_contact is omitted entirely — not just discouraged — so Claude
     has no way to call it, protecting the Hunter monthly quota on demo runs.
     """
+    tools = [_SEARCH_JOBS_TOOL, _SAVE_TO_DASHBOARD_TOOL]
+    if not skip_enrichment:
+        tools.append(_ENRICH_CONTACT_TOOL)
+    return tools
+
+
+def get_tool_functions(skip_enrichment: bool = False) -> dict:
+    """
+    Returns the name -> handler dispatch table. Mirrors build_tools' gating
+    on skip_enrichment so the dispatch table can never invoke enrich_contact
+    even if something upstream ever went wrong and Claude produced a
+    tool_use block for it anyway.
+    """
     functions = {
         "search_jobs": search_jobs_handler,
         "save_to_dashboard": save_to_dashboard_handler,
@@ -51,11 +64,3 @@ def build_tools(skip_enrichment: bool = False) -> dict:
     if not skip_enrichment:
         functions["enrich_contact"] = enrich_contact_handler
     return functions
-
-
-
-tool_functions = {
-    "search_jobs": search_jobs_handler,
-    "save_to_dashboard": save_to_dashboard_handler,
-    "enrich_contact": enrich_contact_handler,
-}
