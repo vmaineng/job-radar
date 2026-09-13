@@ -54,7 +54,7 @@ export default function SignUpPage() {
         </p>
         <Link
           href="/login"
-          className="mt-6 inline-block text-sm text-primary font-medium hover:underline"
+          className="mt-6 inline-block text-sm text-white font-medium hover:underline"
         >
           Back to sign in
         </Link>
@@ -103,7 +103,7 @@ export default function SignUpPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-primary hover:bg-primary-hover disabled:opacity-60 text-primary text-sm font-medium py-2.5 transition-colors"
+          className="w-full rounded-xl bg-primary hover:bg-primary-hover disabled:opacity-60 text-white text-sm font-medium py-2.5 transition-colors"
         >
           {loading ? "Creating account..." : "Create account"}
         </button>
@@ -111,10 +111,7 @@ export default function SignUpPage() {
 
       <p className="mt-6 text-center text-sm text-secondary">
         Already have an account?{" "}
-        <Link
-          href="/login"
-          className="text-primary font-medium hover:underline"
-        >
+        <Link href="/login" className="text-white font-medium hover:underline">
           Sign in
         </Link>
       </p>

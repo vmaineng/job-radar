@@ -65,6 +65,7 @@ agent work.
 """
 
 async def run_job_radar_agent(   search_titles: list[str] | None = None,
+                              user_id:str,
     search_location: str | None = None,
     include_remote: bool = True,
     skip_enrichment: bool = False,
@@ -135,9 +136,11 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
                     kwargs["search_titles"] = search_titles
                     kwargs["search_location"] = search_location
                     kwargs["include_remote"] = include_remote
+                    kwargs["user_id"] = user_id
                 result = await tool_functions[block.name](**kwargs)
-                if block.name == "save_to_dashboard" and result.get("status") == "saved":
-                    saved_count += 1
+                if block.name == "save_to_dashboard":
+                    kwargs["user_id"] = user_id
+                result = await tool_functions[block.name](**kwargs)
             except Exception as e:
                 log.exception(f"Error calling tool {block.name}")
                 result = {"error": str(e)}

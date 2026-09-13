@@ -46,7 +46,7 @@ def _has_run_today(user_id: str) -> bool:
     )
     return len(res.data) > 0
 
-def _log_run(result: dict):
+def _log_run(user_id: str, result: dict):
     supabase.table("agent_runs").insert({
         "user_id": user_id,
         "ran_at": datetime.now(timezone.utc).isoformat(),
@@ -69,7 +69,7 @@ def list_jobs(min_score: int = 50, max_age_days: int = 14, today_only: bool = Fa
 
 @app.post("/api/run-now")
 async def trigger_run(user=Depends(get_current_user)):
-    if await asyncio.to_thread(_has_run_today):
+    if await asyncio.to_thread(_has_run_today, user.id):
         return {"status": "skipped", "reason": "already ran today"}
     profile = await asyncio.to_thread(_get_search_profile, user.id)
     if not profile:
