@@ -1,15 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  LayoutDashboard,
-  Moon,
-  Sun,
-  LogOut,
-  User,
-  Menu,
-  X,
-} from "lucide-react";
+import { LayoutDashboard, Settings, LogOut, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "next/link";
 
@@ -24,6 +16,7 @@ const NAV_LINKS = [
     href: "/dashboard",
     icon: LayoutDashboard,
   },
+  { label: "Settings", href: "/dashboard/settings", icon: Settings },
   //   { label: "Matches", href: "/dashboard/matches", icon: Search },
   //   { label: "Saved", href: "/dashboard/saved", icon: Bookmark },
 ];
@@ -33,6 +26,9 @@ export default function DashboardNavbar({
   onLogout,
 }: DashboardNavbarProps) {
   const [open, setOpen] = useState(false);
+  const visibleLinks = isGuest
+    ? NAV_LINKS.filter((l) => l.href !== "/dashboard/settings")
+    : NAV_LINKS;
 
   return (
     <nav className="fixed top-0 left-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
@@ -46,15 +42,15 @@ export default function DashboardNavbar({
 
         <div className="hidden md:flex items-center gap-6">
           <ul className="flex items-center gap-8">
-            {NAV_LINKS.map(({ label, href, icon: Icon }) => (
+            {visibleLinks.map(({ label, href, icon: Icon }) => (
               <li key={label}>
-                <a
+                <Link
                   href={href}
                   className="flex items-center gap-2 text-secondary font-medium transition-colors hover:text-primary"
                 >
                   <Icon size={16} strokeWidth={2} />
                   {label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -107,9 +103,9 @@ export default function DashboardNavbar({
             bg-surface"
           >
             <ul className="flex flex-col py-4">
-              {NAV_LINKS.map(({ label, href, icon: Icon }) => (
+              {visibleLinks.map(({ label, href, icon: Icon }) => (
                 <li key={label}>
-                  <a
+                  <Link
                     href={href}
                     className=" block
                     px-6
@@ -122,7 +118,7 @@ export default function DashboardNavbar({
                   >
                     <Icon size={16} strokeWidth={2} />
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
 
@@ -138,7 +134,7 @@ export default function DashboardNavbar({
                     </Link>
                     <Link
                       href="/signup"
-                      className="text-sm font-medium text-white"
+                      className="inline-block text-sm font-medium bg-primary text-white px-3 py-1.5 rounded-lg hover:bg-primary-hover transition-colors"
                       onClick={() => setOpen(false)}
                     >
                       Sign up
