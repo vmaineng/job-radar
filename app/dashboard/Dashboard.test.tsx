@@ -44,24 +44,24 @@ describe("Dashboard Page", () => {
   const mockSignOut = jest.fn();
   const mockMarkApplied = jest.fn();
 
-  const realJob = {
-    id: "job-1",
-    title: "Software Engineer I",
-    company: "Real Co",
-    location: "Los Angeles, CA",
-    is_remote: false,
-    relevance_score: 88,
-    relevance_reason: "Good match",
-    apply_url: "https://example.com/apply",
-    status: "new",
-    contact: {
-      full_name: "Alex Kim",
-      title: "Hiring Manager",
-      email: null,
-      linkedin_search_url: "https://linkedin.com/search",
-      source: "hunter",
-    },
-  };
+  // const realJob = {
+  //   id: "job-1",
+  //   title: "Software Engineer I",
+  //   company: "Real Co",
+  //   location: "Los Angeles, CA",
+  //   is_remote: false,
+  //   relevance_score: 88,
+  //   relevance_reason: "Good match",
+  //   apply_url: "https://example.com/apply",
+  //   status: "new",
+  //   contact: {
+  //     full_name: "Alex Kim",
+  //     title: "Hiring Manager",
+  //     email: null,
+  //     linkedin_search_url: "https://linkedin.com/search",
+  //     source: "hunter",
+  //   },
+  // };
 
   beforeEach(() => {
     jest.clearAllMocks();
