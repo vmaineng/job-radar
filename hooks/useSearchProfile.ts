@@ -13,29 +13,33 @@ export function useSearchProfile() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchProfile = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/search-profile`, {
-        headers: { Authorization: `Bearer ${session?.access_token}` },
-      });
-      if (!res.ok) throw new Error("Failed to load search profile");
-      const data = await res.json();
-      setProfile(data);
-    } catch {
-      setError("Couldn't load your search profile.");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  useEffect(() => {
+    let ignore = false;
 
-useEffect(() => {
-    fetchProfile();
-  }, [fetchProfile]);
+    async function load() {
+      setLoading(true);
+      setError(null);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/search-profile`, {
+          headers: { Authorization: `Bearer ${session?.access_token}` },
+        });
+        if (!res.ok) throw new Error("Failed to load search profile");
+        const data = await res.json();
+        if (!ignore) setProfile(data);
+      } catch {
+        if (!ignore) setError("Couldn't load your search profile.");
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
    const saveProfile = useCallback(async (next: SearchProfile) => {
     setSaving(true);
