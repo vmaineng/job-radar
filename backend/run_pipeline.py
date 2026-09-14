@@ -1,5 +1,7 @@
 import asyncio
+
 from dotenv import load_dotenv
+
 load_dotenv()
 
 from agent.runner import run_job_radar_agent

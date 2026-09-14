@@ -1,8 +1,11 @@
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
-import asyncio, json
+import asyncio
+import json
+
 from agent.runner import run_job_radar_agent
 
 PRESETS = [
@@ -12,6 +15,10 @@ PRESETS = [
 async def capture_all():
     for preset_key, search_titles, search_location in PRESETS:
         await capture(preset_key, search_titles, search_location)
+
+def _write_trace_file(preset_key: str, result: dict) -> None:
+    with open(f"demo_trace_{preset_key}.json", "w") as f:
+        json.dump(result, f, indent=2)
 
 async def capture(preset_key, search_titles, search_location):
     try:
@@ -25,9 +32,8 @@ async def capture(preset_key, search_titles, search_location):
     except Exception as e:
         print(f"Failed capturing {preset_key}: {e}")
         return
-    
-    with open(f"demo_trace_{preset_key}.json", "w") as f:
-        json.dump(result, f, indent=2)
+
+    await asyncio.to_thread(_write_trace_file, preset_key, result)
     print(f"Saved {preset_key}: {result['saved_count']} saved, {result['tool_calls']} tool calls, ${result['estimated_cost_usd']}")
 
 if __name__ == "__main__":

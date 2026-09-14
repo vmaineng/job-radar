@@ -1,6 +1,6 @@
-from agent.handlers.search_jobs_handler import search_jobs_handler
 from agent.handlers.enrich_contact_handler import enrich_contact_handler
 from agent.handlers.save_to_dashboard_handler import save_to_dashboard_handler
+from agent.handlers.search_jobs_handler import search_jobs_handler
 
 _SEARCH_JOBS_TOOL = {
     "name": "search_jobs",

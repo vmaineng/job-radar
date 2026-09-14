@@ -1,5 +1,6 @@
 import main
 
+
 def test_list_jobs_default(client, monkeypatch):
     
     fake_jobs = [{"id": 1, "title": "Junior SWE", "score": 75}]

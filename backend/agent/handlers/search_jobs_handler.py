@@ -1,5 +1,6 @@
-from scores_adzuna import run_search_profile
 import os
+
+from scores_adzuna import run_search_profile
 from storage import job_already_seen
 
 DEFAULT_SEARCH_TITLES = [

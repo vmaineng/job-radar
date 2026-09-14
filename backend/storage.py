@@ -1,7 +1,8 @@
+import logging
 import os
 from datetime import datetime, timedelta, timezone
-from supabase import create_client, Client
-import logging   
+
+from supabase import Client, create_client
 
 logger = logging.getLogger(__name__)
 

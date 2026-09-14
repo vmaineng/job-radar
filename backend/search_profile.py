@@ -1,8 +1,11 @@
+from datetime import datetime, timezone
+
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from datetime import datetime, timezone
-from ..auth import get_current_user
+
 from storage import supabase
+
+from ..auth import get_current_user
 
 router = APIRouter(prefix="/api/search-profile", tags=["search-profile"])
 

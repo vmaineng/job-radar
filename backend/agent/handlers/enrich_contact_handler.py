@@ -1,9 +1,10 @@
 # agent/handlers/enrich_contact.py
+import asyncio
+import logging
 from datetime import datetime, timezone
+
 from enrich_contacts import find_contact
 from storage import supabase
-import logging
-import asyncio
 
 logger = logging.getLogger(__name__)
 

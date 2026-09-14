@@ -1,8 +1,10 @@
+import json
 import logging
 import os
+
 from anthropic import AsyncAnthropic
-from agent.tools import get_tool_functions, build_tools
-import json
+
+from agent.tools import build_tools, get_tool_functions
 
 log = logging.getLogger(__name__)
 
@@ -24,19 +26,20 @@ Targeting junior/entry-level/associate roles in software engineering, business
 analysis, or solutions analysis, in Los Angeles or remote.
 """
 
+
 def build_system_prompt(skip_enrichment: bool) -> str:
     enrichment_instructions = (
         "5. If no posting scores 50 or higher, skip enrichment entirely for this run."
-        if not skip_enrichment else
-        "5. Do NOT call enrich_contact for this run — contact enrichment is disabled."
+        if not skip_enrichment
+        else "5. Do NOT call enrich_contact for this run — contact enrichment is disabled."
     )
     step4 = (
         """4. After all postings are scored and saved, identify the single highest-scoring
    posting from this run. If its relevance_score is at least 50, call
    enrich_contact for that posting only — contact lookups are budget-limited,
    so never call it more than once per run, and never on a posting below 50."""
-        if not skip_enrichment else
-        "4. Do not attempt contact enrichment — that step is disabled for this run."
+        if not skip_enrichment
+        else "4. Do not attempt contact enrichment — that step is disabled for this run."
     )
 
     return f"""You are Job Radar, an agent that finds and evaluates job postings for a candidate.
@@ -64,8 +67,10 @@ Briefly narrate what you're doing in plain language before each tool call
 agent work.
 """
 
-async def run_job_radar_agent(   search_titles: list[str] | None = None,
-                              user_id:str,
+
+async def run_job_radar_agent(
+    user_id: str,
+    search_titles: list[str] | None = None,
     search_location: str | None = None,
     include_remote: bool = True,
     skip_enrichment: bool = False,
@@ -80,7 +85,7 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
     system_prompt = build_system_prompt(skip_enrichment=skip_enrichment)
 
     messages = [{"role": "user", "content": "Run today's job search."}]
-    trace=[]
+    trace = []
     iteration = 0
     total_tool_calls = 0
     total_input_tokens = 0
@@ -91,12 +96,12 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
     while iteration < max_iterations:
         iteration += 1
 
-        response =  await client.messages.create(
+        response = await client.messages.create(
             model="claude-sonnet-4-6",
             max_tokens=2000,
             system=system_prompt,
             tools=tools,
-            messages=messages
+            messages=messages,
         )
         log.debug("stop_reason: %s", response.stop_reason)
         total_input_tokens += response.usage.input_tokens
@@ -114,12 +119,14 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
         total_tool_calls += len(tool_use_blocks)
 
         if total_tool_calls > max_tool_calls:
-            trace.append({"type": "system", "text": "Tool call budget exceeded — wrapping up."})
+            trace.append(
+                {"type": "system", "text": "Tool call budget exceeded — wrapping up."}
+            )
             tool_results = [
                 {
                     "type": "tool_result",
                     "tool_use_id": b.id,
-                    "content": "Skipped — daily tool call budget exceeded."
+                    "content": "Skipped — daily tool call budget exceeded.",
                 }
                 for b in tool_use_blocks
             ]
@@ -127,7 +134,9 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
             break
         tool_results = []
         for block in tool_use_blocks:
-            trace.append({"type": "tool_call", "tool": block.name, "input": dict(block.input)})
+            trace.append(
+                {"type": "tool_call", "tool": block.name, "input": dict(block.input)}
+            )
             try:
                 kwargs = dict(block.input)
                 if block.name == "enrich_contact":
@@ -146,17 +155,21 @@ async def run_job_radar_agent(   search_titles: list[str] | None = None,
                 log.exception(f"Error calling tool {block.name}")
                 result = {"error": str(e)}
             trace.append({"type": "tool_result", "tool": block.name, "result": result})
-            tool_results.append({
-                "type": "tool_result",
-                "tool_use_id": block.id,
-                "content": json.dumps(result)
-            })
+            tool_results.append(
+                {
+                    "type": "tool_result",
+                    "tool_use_id": block.id,
+                    "content": json.dumps(result),
+                }
+            )
         messages.append({"role": "user", "content": tool_results})
 
     if iteration >= max_iterations:
         log.warning(f"Job Radar agent hit max_iterations ({max_iterations})")
 
-    cost_estimate = (total_input_tokens / 1_000_000 * 3.00) + (total_output_tokens / 1_000_000 * 15.00)
+    cost_estimate = (total_input_tokens / 1_000_000 * 3.00) + (
+        total_output_tokens / 1_000_000 * 15.00
+    )
 
     return {
         "saved_count": saved_count,

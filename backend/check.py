@@ -1,5 +1,6 @@
 # check.py
 from fastapi.testclient import TestClient
+
 import main
 
 print("type:", type(main.app))

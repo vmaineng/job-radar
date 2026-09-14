@@ -1,4 +1,5 @@
 import os
+
 import httpx
 
 ADZUNA_APP_ID = os.getenv("ADZUNA_APP_ID")

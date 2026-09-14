@@ -1,23 +1,21 @@
 from dotenv import load_dotenv
+
 load_dotenv()
 
 import asyncio
-from auth import get_current_user
-
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-
 from datetime import datetime, timezone
 
-from agent.runner import run_job_radar_agent
-from storage import get_dashboard_jobs, supabase
-from demo import router as demo_router
-
-from limiter import limiter
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
+from agent.runner import run_job_radar_agent
+from auth import get_current_user
+from demo import router as demo_router
+from limiter import limiter
+from storage import get_dashboard_jobs, supabase
 
 app = FastAPI(title="Job Radar")
 

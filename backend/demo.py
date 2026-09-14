@@ -1,10 +1,11 @@
 import asyncio
+
 from fastapi import APIRouter, Request
 from pydantic import BaseModel
 
 from demo_fixtures import DEMO_TRACES
-from storage import save_demo_run
 from limiter import limiter
+from storage import save_demo_run
 
 router = APIRouter(prefix="/api", tags=["demo"])
 

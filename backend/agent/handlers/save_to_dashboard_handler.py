@@ -1,6 +1,7 @@
-from storage import job_already_seen, save_job, save_contact
 import asyncio
 import logging
+
+from storage import job_already_seen, save_contact, save_job
 
 logger = logging.getLogger(__name__)
 

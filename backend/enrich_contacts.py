@@ -1,10 +1,11 @@
-import os
-import re 
-import urllib.parse
-import httpx
-from anthropic import AsyncAnthropic
 import json
 import logging
+import os
+import re
+import urllib.parse
+
+import httpx
+from anthropic import AsyncAnthropic
 
 log = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ parent company's domain)."""
         data = json.loads(text)
         domain = data.get("domain")
         return domain if domain else None
-    except Exception:
+    except Exception as e:
         log.debug(f"Claude domain guess failed for {company_name!r}: {e}")
         return None  # any failure here just means "didn't know" -- never block the pipeline
 

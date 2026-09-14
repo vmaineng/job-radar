@@ -1,9 +1,11 @@
+from unittest.mock import MagicMock
+
 import pytest
-from unittest.mock import patch, MagicMock
-from fastapi.testclient import TestClient
 from fastapi import HTTPException
-from main import app
+from fastapi.testclient import TestClient
+
 from auth import get_current_user
+from main import app
 
 fake_user = MagicMock(id="test-user-id")
 
