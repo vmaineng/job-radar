@@ -4,6 +4,7 @@ import Dashboard from "./page";
 import { useJobs } from "../../hooks/useJobs";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import type { Job } from "@/types";
 
 jest.mock("../../hooks/useJobs");
 jest.mock("@/context/AuthContext");
@@ -33,7 +34,7 @@ jest.mock("./components/DashboardNavbar", () => ({
 
 jest.mock("@/components/JobCard", () => ({
   __esModule: true,
-  default: ({ job }: { job: any }) => (
+  default: ({ job }: { job: Pick<Job, "title"> }) => (
     <div data-testid="job-card">{job.title}</div>
   ),
 }));
