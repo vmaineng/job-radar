@@ -1,22 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSearchProfile } from "@/hooks/useSearchProfile";
+import { useState } from "react";
+import { useSearchProfile, SearchProfile } from "@/hooks/useSearchProfile";
 
 export function SearchProfileForm() {
   const { profile, loading, saving, error, saveProfile } = useSearchProfile();
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [remoteOk, setRemoteOk] = useState(true);
-  const [saved, setSaved] = useState(false);
 
-  useEffect(() => {
-    if (profile) {
-      setTitle(profile.title);
-      setLocation(profile.location);
-      setRemoteOk(profile.remote_ok);
-    }
-  }, [profile]);
+  if (loading)
+    return <p className="text-sm text-secondary">Loading your search...</p>;
+
+  return (
+    <SearchProfileFormInner
+      profile={profile}
+      saving={saving}
+      error={error}
+      saveProfile={saveProfile}
+    />
+  );
+}
+
+function SearchProfileFormInner({
+  profile,
+  saving,
+  error,
+  saveProfile,
+}: {
+  profile: SearchProfile | null;
+  saving: boolean;
+  error: string | null;
+  saveProfile: (next: SearchProfile) => Promise<boolean>;
+}) {
+  const [title, setTitle] = useState(profile?.title ?? "");
+  const [location, setLocation] = useState(profile?.location ?? "");
+  const [remoteOk, setRemoteOk] = useState(profile?.remote_ok ?? true);
+  const [saved, setSaved] = useState(false);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -24,9 +41,6 @@ export function SearchProfileForm() {
     const ok = await saveProfile({ title, location, remote_ok: remoteOk });
     if (ok) setSaved(true);
   }
-
-  if (loading)
-    return <p className="text-sm text-secondary">Loading your search...</p>;
 
   return (
     <form
