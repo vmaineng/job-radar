@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const NAV_ITEMS = [
-  { label: "Features", href: "#features" },
+  // { label: "Features", href: "#features" },
   { label: "How it Works", href: "/demo" },
   // { label: "Pricing", href: "#pricing" },
 ];

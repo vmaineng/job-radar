@@ -29,8 +29,11 @@ export default function DemoPage() {
       </h1>
       <p className="text-secondary mb-8">
         Job Radar is an AI agent that searches, scores, and enriches job
-        postings on its own — pick a search below and watch it reason through
+        postings on its own. Pick a search below and watch it reason through
         each step.
+      </p>
+      <p className="mb-6 text-secondary text-sm">
+        Full runs take 3–4 minutes as the agent works through each step.
       </p>
 
       {!result && (
