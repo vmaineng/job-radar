@@ -1,4 +1,4 @@
-import {renderHook, act, waitFor, render} from '@testing-library/react';
+import {renderHook, act} from '@testing-library/react';
 import { useDemoRun } from './useDemoRun';
 
 describe("useDemoRun", () => { 
