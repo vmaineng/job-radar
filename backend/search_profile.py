@@ -26,6 +26,8 @@ async def get_search_profile(user=Depends(get_current_user)):
         .maybe_single()
         .execute()
     )
+    if res is None:
+        return None
     return res.data
 
 @router.put("", response_model=SearchProfileOut)
