@@ -35,33 +35,6 @@ app.add_middleware(
 app.include_router(demo_router) 
 app.include_router(search_profile_router) 
 
-def _has_run_today(user_id: str) -> bool:
-    today = datetime.now(timezone.utc).date().isoformat()
-    res = (
-        supabase.table("agent_runs")
-        .select("id")
-        .eq("user_id", user_id)
-        .gte("ran_at", f"{today}T00:00:00")
-        .execute()
-    )
-    return len(res.data) > 0
-
-def _log_run(user_id: str, result: dict):
-    supabase.table("agent_runs").insert({
-        "user_id": user_id,
-        "ran_at": datetime.now(timezone.utc).isoformat(),
-        **result,
-    }).execute()
-
-def _get_search_profile(user_id: str) -> dict | None:
-    res = (
-        supabase.table("search_profiles")
-        .select("*")
-        .eq("user_id", user_id)
-        .maybe_single()
-        .execute()
-    )
-    return res.data
 
 @app.get("/api/jobs")
 def list_jobs(min_score: int = 50, max_age_days: int = 14, today_only: bool = False, user=Depends(get_current_user)):
