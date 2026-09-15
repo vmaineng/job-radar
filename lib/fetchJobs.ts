@@ -1,7 +1,7 @@
 import { Job } from "@/types";
 import { supabase } from "@/lib/supabaseClient";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export async function fetchJobs(minScore=50, todayOnly = true): Promise<Job[]> {
     const {

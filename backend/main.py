@@ -16,6 +16,7 @@ from auth import get_current_user
 from demo import router as demo_router
 from limiter import limiter
 from storage import get_dashboard_jobs, supabase
+from search_profile import router as search_profile_router
 
 app = FastAPI(title="Job Radar")
 
@@ -32,6 +33,7 @@ app.add_middleware(
 )
 
 app.include_router(demo_router) 
+app.include_router(search_profile_router) 
 
 def _has_run_today(user_id: str) -> bool:
     today = datetime.now(timezone.utc).date().isoformat()
