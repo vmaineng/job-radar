@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useAuth } from "@/context/AuthContext";
 
 const NAV_ITEMS = [
   // { label: "Features", href: "#features" },
@@ -13,6 +14,7 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { user, loading } = useAuth();
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
@@ -38,12 +40,14 @@ export default function Navbar() {
           </ul>
           <div className="flex items-center gap-6">
             <ThemeToggle className="rounded-lg p-2 text-primary transition hover:bg-card" />
-            <Link
-              href="/login"
-              className="text-secondary hover:text-primary transition-colors"
-            >
-              Login
-            </Link>
+            {!loading && (
+              <Link
+                href={user ? "/dashboard" : "/login"}
+                className="text-secondary hover:text-primary transition-colors"
+              >
+                {user ? "Dashboard" : "Login"}
+              </Link>
+            )}
           </div>
         </nav>
 
@@ -84,15 +88,17 @@ export default function Navbar() {
                   </a>
                 </li>
               ))}
-              <li className="mt-4 border-t border-border pt-4 px-6">
-                <Link
-                  href="/login"
-                  className="block py-3 text-secondary"
-                  onClick={() => setOpen(false)}
-                >
-                  Login
-                </Link>
-              </li>
+              {!loading && (
+                <li className="mt-4 border-t border-border pt-4 px-6">
+                  <Link
+                    href={user ? "/dashboard" : "/login"}
+                    className="block py-3 text-secondary"
+                    onClick={() => setOpen(false)}
+                  >
+                    {user ? "Dashboard" : "Login"}
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
