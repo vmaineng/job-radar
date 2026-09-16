@@ -5,6 +5,7 @@ export type SearchProfile = {
   title: string;
   location: string;
   remote_ok: boolean;
+  background: string;
 };
 
 export function useSearchProfile() {

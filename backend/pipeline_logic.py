@@ -34,3 +34,15 @@ def get_search_profile(user_id: str) -> dict | None:
 def get_all_search_profiles() -> list[dict]:
     res = supabase.table("search_profiles").select("*").execute()
     return res.data or []
+
+def get_user_api_key(user_id: str) -> str | None:
+    res = (
+        supabase.table("user_settings")
+        .select("anthropic_api_key")
+        .eq("user_id", user_id)
+        .maybe_single()
+        .execute()
+    )
+    if res is None:
+        return None
+    return res.data.get("anthropic_api_key") if res.data else None

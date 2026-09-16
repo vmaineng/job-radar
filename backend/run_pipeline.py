@@ -19,7 +19,9 @@ async def run_for_profile(profile: dict):
             search_titles=[profile["title"]],
             search_location=profile["location"],
             include_remote=profile["remote_ok"],
-            user_id=user_id,
+            background=profile.get("background"),
+            user_id=user.id,
+            api_key=api_key,
         )
         log_run(user_id, result)
         print(

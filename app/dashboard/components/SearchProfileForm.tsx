@@ -33,12 +33,18 @@ function SearchProfileFormInner({
   const [title, setTitle] = useState(profile?.title ?? "");
   const [location, setLocation] = useState(profile?.location ?? "");
   const [remoteOk, setRemoteOk] = useState(profile?.remote_ok ?? true);
+  const [background, setBackground] = useState(profile?.background ?? "");
   const [saved, setSaved] = useState(false);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setSaved(false);
-    const ok = await saveProfile({ title, location, remote_ok: remoteOk });
+    const ok = await saveProfile({
+      title,
+      location,
+      remote_ok: remoteOk,
+      background,
+    });
     if (ok) setSaved(true);
   }
 
@@ -69,6 +75,19 @@ function SearchProfileFormInner({
           placeholder="e.g. Los Angeles, CA"
           maxLength={100}
           required
+          className="w-full border border-border rounded-md px-3 py-2 bg-surface text-foreground"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Background (optional)
+        </label>
+        <textarea
+          value={background}
+          onChange={(e) => setBackground(e.target.value)}
+          placeholder="e.g. Bootcamp grad transitioning from finance, skilled in React and Python..."
+          maxLength={1000}
+          rows={3}
           className="w-full border border-border rounded-md px-3 py-2 bg-surface text-foreground"
         />
       </div>

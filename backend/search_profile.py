@@ -13,6 +13,7 @@ class SearchProfileIn(BaseModel):
     title: str = Field(..., min_length=2, max_length=100)
     location: str = Field(..., min_length=2, max_length=100)
     remote_ok: bool = True
+    background: str | None = Field(None, max_length=1000)
 
 class SearchProfileOut(SearchProfileIn):
     updated_at: datetime
@@ -37,6 +38,7 @@ async def upsert_search_profile(body: SearchProfileIn, user=Depends(get_current_
         "title": body.title.strip(),
         "location": body.location.strip(),
         "remote_ok": body.remote_ok,
+        "background": body.background.strip() if body.background else None,
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
     res = supabase.table("search_profiles").upsert(row).execute()
