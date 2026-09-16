@@ -132,7 +132,7 @@ async def run_job_radar_agent(
 
         response = await client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=2000,
+            max_tokens=4096,
             system=system_prompt,
             tools=tools,
             messages=messages,
@@ -146,7 +146,9 @@ async def run_job_radar_agent(
             if block.type == "text" and block.text.strip():
                 trace.append({"type": "reasoning", "text": block.text.strip()})
 
-        if response.stop_reason != "tool_use":
+        tool_use_blocks = [b for b in response.content if b.type == "tool_use"]
+
+        if not tool_use_blocks:
             if jobs_found_count > 0 and saved_count < jobs_found_count and not stall_retry_used:
                 stall_retry_used = True
                 trace.append({
@@ -168,7 +170,6 @@ async def run_job_radar_agent(
                 continue
             break
 
-        tool_use_blocks = [b for b in response.content if b.type == "tool_use"]
         total_tool_calls += len(tool_use_blocks)
 
         if total_tool_calls > max_tool_calls:
@@ -204,6 +205,12 @@ async def run_job_radar_agent(
                 if block.name == "save_to_dashboard":
                     kwargs["user_id"] = user_id
                 result = await tool_functions[block.name](**kwargs)
+            except TypeError as e:
+                log.warning(f"Malformed tool call for {block.name}: missing/invalid args — {e}")
+                result = {
+            "status": "error",
+            "reason": f"Tool call was missing required arguments: {e}",
+        }
             except Exception as e:
                 log.exception(f"Error calling tool {block.name}")
                 result = {"error": str(e)}
