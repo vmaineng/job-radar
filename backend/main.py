@@ -5,10 +5,8 @@ load_dotenv()
 import asyncio
 
 import logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-)
+import sentry_sdk
+from sentry_sdk.integrations.logging import LoggingIntegration
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -42,6 +40,18 @@ app.include_router(demo_router)
 app.include_router(search_profile_router)
 
 
+sentry_logging = LoggingIntegration(
+    level=logging.INFO,        # capture INFO and above as breadcrumbs
+    event_level=logging.ERROR, # send ERROR and above as actual Sentry events
+)
+
+sentry_sdk.init(
+    dsn=os.getenv("SENTRY_DSN"),
+    integrations=[sentry_logging],
+    traces_sample_rate=0.1,
+    send_default_pii=False,
+)
+
 @app.get("/api/jobs")
 def list_jobs(
     min_score: int = 50,
@@ -59,6 +69,8 @@ def list_jobs(
 
 @app.post("/api/run-now")
 async def trigger_run(user=Depends(get_current_user)):
+    sentry_sdk.set_user({"id": user.id, "email": user.email})
+
     if await asyncio.to_thread(has_run_today, user.id):
         return {"status": "skipped", "reason": "already ran today"}
     profile = await asyncio.to_thread(get_search_profile, user.id)
@@ -73,6 +85,12 @@ async def trigger_run(user=Depends(get_current_user)):
             status_code=400,
             detail="Add your Anthropic API key in settings before running a search.",
         )
+
+    sentry_sdk.set_context("search_profile", {
+        "title": profile["title"],
+        "location": profile["location"],
+        "remote_ok": profile["remote_ok"],
+    })
     result = await run_job_radar_agent(
         search_titles=[profile["title"]],
         search_location=profile["location"],
