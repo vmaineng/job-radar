@@ -4,6 +4,7 @@ import DashboardNavbar from "../components/DashboardNavbar";
 import { SearchProfileForm } from "../components/SearchProfileForm";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { ApiKeyForm } from "../components/ApiKeyForm";
 
 export default function SearchSettingsPage() {
   const { signOut } = useAuth();
@@ -23,6 +24,7 @@ export default function SearchSettingsPage() {
           Job Radar runs once a day using the title and location below.
         </p>
         <SearchProfileForm />
+        <ApiKeyForm />
       </main>
     </div>
   );

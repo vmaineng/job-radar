@@ -4,6 +4,7 @@ load_dotenv()
 
 import asyncio
 
+import os
 import logging
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -22,6 +23,8 @@ from storage import get_dashboard_jobs
 from search_profile import router as search_profile_router
 from pipeline_logic import has_run_today, get_search_profile, log_run, get_user_api_key
 
+from user_settings import router as user_settings_router
+
 app = FastAPI(title="Job Radar")
 
 app.state.limiter = limiter
@@ -38,7 +41,7 @@ app.add_middleware(
 
 app.include_router(demo_router)
 app.include_router(search_profile_router)
-
+app.include_router(user_settings_router)
 
 sentry_logging = LoggingIntegration(
     level=logging.INFO,        # capture INFO and above as breadcrumbs
@@ -101,3 +104,4 @@ async def trigger_run(user=Depends(get_current_user)):
     )
     await asyncio.to_thread(log_run, user.id, result)
     return {"status": "complete", **result}
+

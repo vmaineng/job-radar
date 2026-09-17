@@ -28,7 +28,7 @@ export function CurrentSearchSummary() {
           You haven&apos;t set up a search yet.
         </p>
         <Link
-          href="/settings/search"
+          href="/dashboard/settings"
           className="text-sm font-medium text-primary hover:underline"
         >
           Set up your search →
@@ -48,7 +48,7 @@ export function CurrentSearchSummary() {
         {profile.remote_ok ? " · Remote OK" : ""}
       </p>
       <Link
-        href="/settings/search"
+        href="/dashboard/settings"
         className="text-sm font-medium text-primary hover:underline"
       >
         Edit search →
